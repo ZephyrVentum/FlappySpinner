@@ -1,4 +1,4 @@
-package com.zephyr.ventum;
+package com.zephyr.ventum.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.zephyr.ventum.utils.Constants;
 
 /**
  * Created by sashaklimenko on 7/6/17.
@@ -24,8 +26,8 @@ public class MenuScreen implements Screen {
     public MenuScreen(Game game) {
         Box2D.init();
         this.game = game;
-        world = new World(new Vector2(0, 0), false);
-        stage = new Stage(new ScreenViewport());
+        world = new World(Constants.GRAVITY, false);
+        stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         create();
     }
 

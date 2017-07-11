@@ -3,7 +3,7 @@ package com.zephyr.ventum;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
+import com.zephyr.ventum.screens.MenuScreen;
 
 public class FlappySpinner extends Game {
 
