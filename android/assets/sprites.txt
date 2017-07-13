@@ -1,0 +1,131 @@
+sprites.png
+size: 489, 504
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bottomtube
+  rotate: false
+  xy: 159, 183
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
+gameover
+  rotate: false
+  xy: 213, 121
+  size: 275, 60
+  orig: 275, 60
+  offset: 0, 0
+  index: -1
+home
+  rotate: false
+  xy: 237, 61
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+home_pressed
+  rotate: false
+  xy: 367, 61
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+leaderboard
+  rotate: false
+  xy: 107, 121
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+leaderboard_pressed
+  rotate: false
+  xy: 1, 121
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+music
+  rotate: false
+  xy: 302, 61
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+music_off
+  rotate: false
+  xy: 166, 1
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+music_off_pressed
+  rotate: false
+  xy: 107, 61
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+music_pressed
+  rotate: false
+  xy: 172, 61
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 80, 183
+  size: 77, 72
+  orig: 77, 72
+  offset: 0, 0
+  index: -1
+pause_pressed
+  rotate: false
+  xy: 1, 183
+  size: 77, 72
+  orig: 77, 72
+  offset: 0, 0
+  index: -1
+playbtn
+  rotate: false
+  xy: 1, 61
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+playbtn_pressed
+  rotate: false
+  xy: 337, 1
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 231, 1
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+settings_pressed
+  rotate: false
+  xy: 60, 1
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+spinner
+  rotate: false
+  xy: 1, 1
+  size: 57, 53
+  orig: 57, 62
+  offset: 0, 9
+  index: -1
+toptube
+  rotate: false
+  xy: 213, 183
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
