@@ -11,7 +11,13 @@ public class Constants {
     public static final int HEIGHT = 800;
     public static final int WIDTH = 480;
 
-    public static final Vector2 GRAVITY = new Vector2(0, 40);
+    public static final float WORLD_TO_SCREEN = 32;
+
+    public static final Vector2 GROUND_SIZE = new Vector2(WIDTH,2.5f);
+    public static final float SPINNER_SIZE = 2;
+    public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 12f);
+
+    public static final Vector2 GRAVITY = new Vector2(0, -10);
 
     public static final String PHYSICS_PATH = "physics.xml";
     public static final String SPRITES_PATH = "sprites.txt";
@@ -53,8 +59,12 @@ public class Constants {
     public static final String MUSIC_PATH = "music.mp3";
     public static final String SOUND_PATH = "sfx_wing.ogg";
 
-    public static final Vector2 SPINNER_POSSITIONS = new Vector2(
+    public static final Vector2 SPINNER_POSITIONS = new Vector2(
             WIDTH / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionWidth() / 2,
             HEIGHT / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionHeight() / 2);
+
+    public static final Vector2 GROUND_POSITIONS = new Vector2(0, 0);
+
+
 
 }
