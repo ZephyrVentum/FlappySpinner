@@ -4,10 +4,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -19,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.Ground;
 import com.zephyr.ventum.actors.Spinner;
+import com.zephyr.ventum.actors.Tube;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.WorldUtils;
 
@@ -36,38 +42,44 @@ public class GameScreen implements Screen {
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
+    private Box2DDebugRenderer renderer = new Box2DDebugRenderer();
+    ;
+
 
     public GameScreen(Game game) {
         Box2D.init();
         Gdx.input.setInputProcessor(stage);
         aGame = game;
-        stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
+        stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT, new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT)));
 
         world = WorldUtils.createWorld();
         setUpBackground();
+        setUpTube();
         setUpGround();
         setUpSpinner();
 
+
         //stage.addAction(Actions.fadeOut(1));
-        stage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                spinner.jump();
-            }
-        });
     }
 
-    public void setUpSpinner(){
+    public void setUpTube() {
+        Tube tubeFirst = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 1.5f));
+        Tube tubeSecond = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 2 + Constants.TUBE_WIDTH));
+        stage.addActor(tubeFirst);
+        stage.addActor(tubeSecond);
+    }
+
+    public void setUpSpinner() {
         spinner = new Spinner(WorldUtils.createSpinner(world));
         stage.addActor(spinner);
     }
 
-    public void setUpBackground(){
+    public void setUpBackground() {
         Background background = new Background();
         stage.addActor(background);
     }
 
-    public void setUpGround(){
+    public void setUpGround() {
         Ground ground = new Ground(WorldUtils.createGround(world));
         stage.addActor(ground);
     }
@@ -78,10 +90,13 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        onScreenClicked(delta);
+
         stage.act(delta);
         stage.draw();
 
         doPhysicsStep(delta);
+        renderer.render(world, stage.getCamera().combined);
     }
 
     private void doPhysicsStep(float deltaTime) {
@@ -90,6 +105,12 @@ public class GameScreen implements Screen {
         while (accumulator >= TIME_STEP) {
             world.step(TIME_STEP, 6, 2);
             accumulator -= TIME_STEP;
+        }
+    }
+
+    public void onScreenClicked(float delta) {
+        if (Gdx.input.justTouched()) {
+            spinner.jump(delta);
         }
     }
 

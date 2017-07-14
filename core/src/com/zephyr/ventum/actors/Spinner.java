@@ -49,7 +49,9 @@ public class Spinner extends BaseActor {
         this.addAction(infiniteLoop);
     }
 
-    public void jump() {
+    public void jump(float delta) {
         body.applyLinearImpulse(Constants.SPINNER_JUMP_IMPULSE, body.getWorldCenter(), true);
+        //body.setTransform(body.getPosition().x, body.getPosition().y + delta*30f, 0);
+       // body.setLinearDamping(0.5f);
     }
 }

@@ -27,6 +27,10 @@ public class TextureHolder {
         textureRegionHashMap.put(Constants.GROUND_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.GROUND_IMAGE_PATH))));
 
+        textureRegionHashMap.put(Constants.SKY_IMAGE_NAME,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.SKY_IMAGE_PATH))));
+
+
         textureRegionHashMap.put(Constants.BACKGROUND_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.BACKGROUND_IMAGE_PATH))));
 

@@ -8,30 +8,38 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
 
-    public static final int HEIGHT = 800;
-    public static final int WIDTH = 480;
+    public static final int HEIGHT = 40;
+    public static final int WIDTH = 24;
 
-    public static final float WORLD_TO_SCREEN = 32;
+    public static final float WORLD_TO_SCREEN = 1;
 
-    public static final Vector2 GROUND_SIZE = new Vector2(WIDTH,2.5f);
-    public static final float SPINNER_SIZE = 2;
-    public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 12f);
 
-    public static final Vector2 GRAVITY = new Vector2(0, -10);
+    public static final Vector2 GROUND_SIZE = new Vector2(WIDTH, 3.5f);
+
+    public static final float TUBE_WIDTH = 2.5f;
+    public static final float TUBE_SPACING = 8;
+    public static final float TUBE_SPEED = -7f;
+
+    public static final float SPINNER_SIZE = 1f;
+    public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 33f);
+
+    public static final Vector2 GRAVITY = new Vector2(0, -50);
 
     public static final String PHYSICS_PATH = "physics.xml";
     public static final String SPRITES_PATH = "sprites.txt";
 
     public static final String BACKGROUND_IMAGE_PATH = "bg.png";
     public static final String GROUND_IMAGE_PATH = "ground.png";
+    public static final String SKY_IMAGE_PATH = "sky.png";
 
     public static final String BACKGROUND_IMAGE_NAME = "background";
     public static final String GROUND_IMAGE_NAME = "ground";
+    public static final String SKY_IMAGE_NAME = "sky";
 
     public static final String SPINNER_NAME = "spinner";
 
-    public static final String BOTTOM_TUBE_NAME = "bottom_tube";
-    public static final String TOP_TUBE_NAME = "top_tube";
+    public static final String BOTTOM_TUBE_NAME = "bottomtube";
+    public static final String TOP_TUBE_NAME = "toptube";
 
     public static final String GAME_OVER_NAME = "gameover";
 
@@ -60,11 +68,10 @@ public class Constants {
     public static final String SOUND_PATH = "sfx_wing.ogg";
 
     public static final Vector2 SPINNER_POSITIONS = new Vector2(
-            WIDTH / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionWidth() / 2,
-            HEIGHT / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionHeight() / 2);
+            WIDTH / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionWidth() * 0.05f / 2,
+            HEIGHT / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionHeight() * 0.05f / 2);
 
     public static final Vector2 GROUND_POSITIONS = new Vector2(0, 0);
-
 
 
 }
