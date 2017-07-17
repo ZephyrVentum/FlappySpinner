@@ -1,5 +1,6 @@
 package com.zephyr.ventum.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -36,22 +37,28 @@ public class Tube extends BaseActor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+        float deltaSpeed = Gdx.graphics.getDeltaTime() * Constants.TUBE_SPEED;
 
         batch.draw(topTubeTexture,
-                topTubeBody.getPosition().x - Constants.TUBE_WIDTH/2,
-                topTubeBody.getPosition().y,
+                topTubeBody.getPosition().x  - Constants.TUBE_WIDTH/2 + deltaSpeed,
+                topTubeBody.getPosition().y - Constants.TUBE_HEIGHT/2,
                 Constants.TUBE_WIDTH,
-                30);
+                Constants.TUBE_HEIGHT);
+
         batch.draw(bottomTubeTexture,
-                bottomTubeBody.getPosition().x - Constants.TUBE_WIDTH/2,
-                bottomTubeBody.getPosition().y,
+                bottomTubeBody.getPosition().x - Constants.TUBE_WIDTH/2 + deltaSpeed,
+                bottomTubeBody.getPosition().y - Constants.TUBE_HEIGHT/2 ,
                 Constants.TUBE_WIDTH,
-                topTubeBody.getPosition().y -Constants.TUBE_SPACING - 30);
+                Constants.TUBE_HEIGHT);
     }
 
     private void resetTubePositions() {
-        topTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH, WorldUtils.generateTubePosition(), 0);
-        bottomTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH, topTubeBody.getPosition().y - Constants.TUBE_SPACING - 30, 0);
+        topTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH,
+                WorldUtils.generateTubePosition(),
+                0);
+        bottomTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH,
+                topTubeBody.getPosition().y - Constants.TUBE_SPACING - Constants.TUBE_HEIGHT,
+                0);
     }
 
     private boolean isLeftSideReached() {

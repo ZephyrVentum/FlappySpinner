@@ -15,7 +15,7 @@ public class FlappySpinner extends Game {
 	public void create () {
 		startMusic();
 		TextureHolder.initAssets();
-		this.setScreen(new GameScreen(this));
+		this.setScreen(new MenuScreen(this));
 	}
 
 	@Override

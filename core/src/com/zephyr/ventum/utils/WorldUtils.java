@@ -1,5 +1,6 @@
 package com.zephyr.ventum.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -18,7 +19,7 @@ public class WorldUtils {
 
     public static World createWorld() {
 
-        return new World(Constants.GRAVITY, true);
+        return new World(new Vector2(0, 0), true);
     }
 
 
@@ -31,9 +32,9 @@ public class WorldUtils {
         circle.setRadius(Constants.SPINNER_SIZE);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
-        fixtureDef.density = 0.55f;
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.density = Constants.SPENNER_DENSITY;
+        fixtureDef.friction = 0f;
+        fixtureDef.restitution = 0.6f;
         body.createFixture(fixtureDef);
         circle.dispose();
         return body;
@@ -55,7 +56,7 @@ public class WorldUtils {
         return bodies;
     }
 
-    public static Body createSky(World world){
+    public static Body createSky(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0, Constants.HEIGHT);
@@ -75,26 +76,25 @@ public class WorldUtils {
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(posX, posY);
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Constants.TUBE_WIDTH/2, 30/2);
+        shape.setAsBox(Constants.TUBE_WIDTH / 2, Constants.TUBE_HEIGHT / 2);
         Body bodyTop = world.createBody(bodyDef);
         bodyTop.createFixture(shape, 12f);
         bodyTop.resetMassData();
         shape.dispose();
         bodyTop.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
-
         Array<Body> bodies = new Array<Body>();
         bodies.add(bodyTop);
         bodies.add(createBottomTube(world, posX, posY));
         return bodies;
     }
 
-    public static Body createBottomTube(World world,float posX, float posY) {
+    public static Body createBottomTube(World world, float posX, float posY) {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(posX, posY - Constants.TUBE_SPACING - 30);
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Constants.TUBE_WIDTH/2, 30/2);
+        shape.setAsBox(Constants.TUBE_WIDTH / 2, Constants.TUBE_HEIGHT / 2);
         Body body = world.createBody(bodyDef);
         body.createFixture(shape, 12f);
         body.resetMassData();
@@ -103,7 +103,7 @@ public class WorldUtils {
         return body;
     }
 
-    public static float generateTubePosition(){
+    public static float generateTubePosition() {
         int margin = random.nextInt(20) - 10;
         return Constants.HEIGHT + margin;
     }

@@ -1,5 +1,6 @@
 package com.zephyr.ventum.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -22,7 +23,6 @@ public class Spinner extends BaseActor {
     public Spinner(Body body) {
         this.body = body;
         textureRegion = TextureHolder.getTextureRegion(Constants.SPINNER_NAME);
-        setSize(transformToScreen(Constants.SPINNER_SIZE), transformToScreen(Constants.SPINNER_SIZE));
 
         spinnerRotateAction();
     }
@@ -31,12 +31,12 @@ public class Spinner extends BaseActor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.draw(textureRegion,
-                body.getPosition().x,
-                body.getPosition().y,
-                getWidth() / 2,
-                getHeight() / 2,
-                getWidth(),
-                getHeight(),
+                body.getPosition().x-Constants.SPINNER_SIZE,
+                body.getPosition().y- Constants.SPINNER_SIZE,
+                Constants.SPINNER_SIZE,
+                Constants.SPINNER_SIZE,
+                Constants.SPINNER_SIZE*2.5f,
+                Constants.SPINNER_SIZE*2.5f,
                 1, 1, getRotation());
     }
 

@@ -4,22 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.Ground;
@@ -37,29 +26,29 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Game aGame;
     private World world;
+    private boolean isFirstClick = true;
 
     private Spinner spinner;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
     private Box2DDebugRenderer renderer = new Box2DDebugRenderer();
-    ;
 
 
     public GameScreen(Game game) {
         Box2D.init();
         Gdx.input.setInputProcessor(stage);
         aGame = game;
-        stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT, new OrthographicCamera(Constants.WIDTH, Constants.HEIGHT)));
+        stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
 
         world = WorldUtils.createWorld();
         setUpBackground();
-        setUpTube();
         setUpGround();
         setUpSpinner();
 
+        stage.addAction(Actions.fadeOut(0.25f));
+        //stage.addAction(Actions.fadeIn(0.3f));
 
-        //stage.addAction(Actions.fadeOut(1));
     }
 
     public void setUpTube() {
@@ -96,7 +85,7 @@ public class GameScreen implements Screen {
         stage.draw();
 
         doPhysicsStep(delta);
-        renderer.render(world, stage.getCamera().combined);
+        //renderer.render(world, stage.getCamera().combined);
     }
 
     private void doPhysicsStep(float deltaTime) {
@@ -110,6 +99,11 @@ public class GameScreen implements Screen {
 
     public void onScreenClicked(float delta) {
         if (Gdx.input.justTouched()) {
+            if(isFirstClick) {
+                isFirstClick = false;
+                setUpTube();
+                world.setGravity(Constants.GRAVITY);
+            }
             spinner.jump(delta);
         }
     }

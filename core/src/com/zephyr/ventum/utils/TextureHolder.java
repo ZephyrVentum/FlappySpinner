@@ -19,7 +19,7 @@ public class TextureHolder {
 
     public static void initAssets(){
 
-        TextureAtlas textureAtlas = new TextureAtlas(Constants.SPRITES_PATH);
+        textureAtlas = new TextureAtlas(Constants.SPRITES_PATH);
 
         textureRegionHashMap.put(Constants.SPINNER_NAME,
                 textureAtlas.findRegion(Constants.SPINNER_NAME));
@@ -47,6 +47,10 @@ public class TextureHolder {
 
     public static TextureRegion getTextureRegion(String key){
         return textureRegionHashMap.get(key);
+    }
+
+    public static TextureAtlas getTextureAtlas(){
+        return textureAtlas;
     }
 
 }

@@ -16,14 +16,16 @@ public class Constants {
 
     public static final Vector2 GROUND_SIZE = new Vector2(WIDTH, 3.5f);
 
-    public static final float TUBE_WIDTH = 2.5f;
-    public static final float TUBE_SPACING = 8;
-    public static final float TUBE_SPEED = -7f;
+    public static final float TUBE_WIDTH = 3.5f;
+    public static final float TUBE_HEIGHT = 30f;
+    public static final float TUBE_SPACING = 7.7f;
+    public static final float TUBE_SPEED = -9f;
 
     public static final float SPINNER_SIZE = 1f;
-    public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 33f);
+    public static final float SPENNER_DENSITY = 0.55f;
+    public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 40f);
 
-    public static final Vector2 GRAVITY = new Vector2(0, -50);
+    public static final Vector2 GRAVITY = new Vector2(0, -64);
 
     public static final String PHYSICS_PATH = "physics.xml";
     public static final String SPRITES_PATH = "sprites.txt";

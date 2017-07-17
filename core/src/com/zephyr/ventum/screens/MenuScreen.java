@@ -5,13 +5,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.zephyr.ventum.actors.Background;
+import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.utils.Constants;
+import com.zephyr.ventum.utils.TextureHolder;
 
 /**
  * Created by sashaklimenko on 7/6/17.
@@ -23,17 +35,79 @@ public class MenuScreen implements Screen {
     private Game game;
     private World world;
 
+    private GameButton playButton, leaderbordsButton, settingsButton, marketButton;
+
+    private final float TIME_STEP = 1 / 300f;
+    private float accumulator = 0f;
+
     public MenuScreen(Game game) {
         Box2D.init();
         this.game = game;
-        world = new World(Constants.GRAVITY, false);
+        world = new World(new Vector2(0,0), false);
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
-        create();
+
+        Gdx.input.setInputProcessor(stage);
+        setUpBackground();
+        setUpButtons();
     }
 
-    public void create(){
-
+    public void setUpBackground() {
+        Background background = new Background();
+        stage.addActor(background);
     }
+
+    public void setUpButtons() {
+        setUpPlayButton();
+        setUpLeaderbordsButton();
+        setUpSettingsButton();
+    }
+
+    public void setUpPlayButton() {
+        playButton = new GameButton(8,4,"playbtn",false);
+        playButton.setPosition(Constants.WIDTH / 4 - playButton.getWidth()* 2/5,
+                Constants.HEIGHT / 2 - playButton.getHeight() * 2);
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                float delay = 0.3f; // seconds
+                //stage.addAction(Actions.fadeOut(0.25f));
+                Timer.schedule(new Timer.Task(){
+                    @Override
+                    public void run() {
+                        game.setScreen(new GameScreen(game));
+                    }
+                }, delay);
+            }
+        });
+        stage.addActor(playButton);
+    }
+
+    public void setUpLeaderbordsButton(){
+        leaderbordsButton = new GameButton(8,4,"leaderboard",false);
+        leaderbordsButton.setPosition(Constants.WIDTH *3/4 - leaderbordsButton.getWidth() *3/5,
+                Constants.HEIGHT / 2 - leaderbordsButton.getHeight() * 2);
+        leaderbordsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            }
+        });
+        stage.addActor(leaderbordsButton);
+    }
+
+
+    public void setUpSettingsButton(){
+        settingsButton = new GameButton(8,4,"settings",false);
+        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth()* 2/5, Constants.HEIGHT / 4 - settingsButton.getHeight());
+        settingsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            }
+        });
+        stage.addActor(settingsButton);
+    }
+
+
 
     @Override
     public void show() {
@@ -44,13 +118,25 @@ public class MenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act();
         stage.draw();
+
+        doPhysicsStep(delta);
     }
 
     @Override
     public void resize(int width, int height) {
 
+    }
+
+    private void doPhysicsStep(float deltaTime) {
+        float frameTime = Math.min(deltaTime, 0.25f);
+        accumulator += frameTime;
+        while (accumulator >= TIME_STEP) {
+            world.step(TIME_STEP, 6, 2);
+            accumulator -= TIME_STEP;
+        }
     }
 
     @Override
