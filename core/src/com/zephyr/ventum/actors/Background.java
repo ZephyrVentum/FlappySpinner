@@ -13,7 +13,7 @@ import com.zephyr.ventum.utils.TextureHolder;
 
 public class Background extends Actor {
 
-    private static final int SPEED = 40;
+    private static final int SPEED = 4;
 
     private TextureRegion textureRegion;
     private Vector2 backgroundPosition1, backgroundPosition2;
