@@ -61,7 +61,7 @@ public class Ground extends BaseActor {
         batch.draw(textureRegionGround, groundPositions1.x, groundPositions1.y, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y);
         batch.draw(textureRegionGround, groundPositions2.x, groundPositions2.y, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y);
 
-        batch.draw(textureRegionSky, groundPositions1.x, sky.getPosition().y - Constants.GROUND_SIZE.y, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y);
-        batch.draw(textureRegionSky, groundPositions2.x, sky.getPosition().y - Constants.GROUND_SIZE.y, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y);
+        batch.draw(textureRegionSky, groundPositions1.x, sky.getPosition().y - Constants.GROUND_SIZE.y + 1, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y - 1);
+        batch.draw(textureRegionSky, groundPositions2.x, sky.getPosition().y - Constants.GROUND_SIZE.y + 1, Constants.GROUND_SIZE.x, Constants.GROUND_SIZE.y - 1);
     }
 }
