@@ -4,13 +4,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
+import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.actors.Ground;
 import com.zephyr.ventum.actors.Spinner;
 import com.zephyr.ventum.actors.Tube;
@@ -26,6 +31,11 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Game aGame;
     private World world;
+    private GameButton pauseButton;
+
+    private Ground ground;
+    private Tube tubeFirst, tubeSecond;
+
     private boolean isFirstClick = true;
 
     private Spinner spinner;
@@ -37,23 +47,22 @@ public class GameScreen implements Screen {
 
     public GameScreen(Game game) {
         Box2D.init();
-        Gdx.input.setInputProcessor(stage);
         aGame = game;
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
-
         world = WorldUtils.createWorld();
+        Gdx.input.setInputProcessor(stage);
+
         setUpBackground();
+        setUpTube();
         setUpGround();
         setUpSpinner();
-
-        stage.addAction(Actions.fadeOut(0.25f));
-        //stage.addAction(Actions.fadeIn(0.3f));
+        setUpPauseButton();
 
     }
 
     public void setUpTube() {
-        Tube tubeFirst = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 1.5f));
-        Tube tubeSecond = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 2 + Constants.TUBE_WIDTH));
+        tubeFirst = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 1.5f));
+        tubeSecond = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 2 + Constants.TUBE_WIDTH));
         stage.addActor(tubeFirst);
         stage.addActor(tubeSecond);
     }
@@ -69,10 +78,26 @@ public class GameScreen implements Screen {
     }
 
     public void setUpGround() {
-        Ground ground = new Ground(WorldUtils.createGround(world));
+        ground = new Ground(WorldUtils.createGround(world));
         stage.addActor(ground);
     }
 
+    public void setUpPauseButton(){
+        pauseButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, "pause", true);
+        pauseButton.setPosition(1,Constants.HEIGHT - pauseButton.getHeight() - 1);
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pause();
+                world.setGravity(new Vector2(0, 0));
+                tubeFirst.stopMove();
+                tubeSecond.stopMove();
+                ground.stopMove();
+                spinner.stopMove();
+            }
+        });
+        stage.addActor(pauseButton);
+    }
 
     @Override
     public void render(float delta) {
@@ -99,9 +124,14 @@ public class GameScreen implements Screen {
 
     public void onScreenClicked(float delta) {
         if (Gdx.input.justTouched()) {
+            Vector2 screenCoords = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+            if (pauseButton.getRectangle().contains(screenCoords)){
+                return;
+            }
             if(isFirstClick) {
                 isFirstClick = false;
-                setUpTube();
+                tubeFirst.startMove();
+                tubeSecond.startMove();
                 world.setGravity(Constants.GRAVITY);
             }
             spinner.jump(delta);

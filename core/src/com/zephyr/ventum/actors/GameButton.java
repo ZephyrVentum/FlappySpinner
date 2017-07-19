@@ -1,5 +1,6 @@
 package com.zephyr.ventum.actors;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -10,6 +11,8 @@ import com.zephyr.ventum.utils.TextureHolder;
  */
 
 public class GameButton extends Button {
+
+    private Rectangle rectangle;
 
     public GameButton(float WIDTH, float HEIGHT, String drawable, boolean isCheckable) {
 
@@ -24,5 +27,14 @@ public class GameButton extends Button {
         }
         setStyle(buttonStyle);
         setSize(WIDTH, HEIGHT);
+
+        rectangle = new Rectangle(getX(),getY(),getWidth(),getHeight());
+    }
+
+
+
+    public Rectangle getRectangle() {
+        rectangle.set(getX(),getY(),getWidth(),getHeight());
+        return rectangle;
     }
 }

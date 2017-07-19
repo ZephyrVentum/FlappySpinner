@@ -21,11 +21,16 @@ public class TextureHolder {
 
         textureAtlas = new TextureAtlas(Constants.SPRITES_PATH);
 
+
+
         textureRegionHashMap.put(Constants.SPINNER_NAME,
                 textureAtlas.findRegion(Constants.SPINNER_NAME));
 
         textureRegionHashMap.put(Constants.GROUND_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.GROUND_IMAGE_PATH))));
+
+        textureRegionHashMap.put(Constants.LOGO_IMAGE_NAME,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.LOGO_IMAGE_PATH))));
 
         textureRegionHashMap.put(Constants.SKY_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.SKY_IMAGE_PATH))));

@@ -14,9 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -34,6 +36,8 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private Game game;
     private World world;
+    private Image logo;
+    private Background background;
 
     private GameButton playButton, leaderbordsButton, settingsButton, marketButton;
 
@@ -43,16 +47,24 @@ public class MenuScreen implements Screen {
     public MenuScreen(Game game) {
         Box2D.init();
         this.game = game;
-        world = new World(new Vector2(0,0), false);
+        world = new World(new Vector2(0, 0), false);
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
 
         Gdx.input.setInputProcessor(stage);
         setUpBackground();
         setUpButtons();
+        setUpLogo();
+    }
+
+    public void setUpLogo(){
+        logo = new Image(TextureHolder.getTextureRegion(Constants.LOGO_IMAGE_NAME));
+        logo.setSize(Constants.WIDTH, Constants.LOGO_HEIGHT);
+        logo.setPosition(0,Constants.HEIGHT *2/3 - logo.getHeight()/2);
+        stage.addActor(logo);
     }
 
     public void setUpBackground() {
-        Background background = new Background();
+        background = new Background();
         stage.addActor(background);
     }
 
@@ -63,16 +75,15 @@ public class MenuScreen implements Screen {
     }
 
     public void setUpPlayButton() {
-        playButton = new GameButton(8,4,"playbtn",false);
-        playButton.setPosition(Constants.WIDTH / 4 - playButton.getWidth()* 2/5,
+        playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
+        playButton.setPosition(Constants.WIDTH / 4 - playButton.getWidth() * 2 / 5,
                 Constants.HEIGHT / 2 - playButton.getHeight() * 2);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
-                float delay = 0.3f; // seconds
-                //stage.addAction(Actions.fadeOut(0.25f));
-                Timer.schedule(new Timer.Task(){
+                float delay = 0.3f;
+                setUpFadeOut();
+                Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
                         game.setScreen(new GameScreen(game));
@@ -83,9 +94,20 @@ public class MenuScreen implements Screen {
         stage.addActor(playButton);
     }
 
-    public void setUpLeaderbordsButton(){
-        leaderbordsButton = new GameButton(8,4,"leaderboard",false);
-        leaderbordsButton.setPosition(Constants.WIDTH *3/4 - leaderbordsButton.getWidth() *3/5,
+    public void setUpFadeOut() {
+        Image lastActor = new Image();
+        stage.addActor(lastActor);
+        Array<Actor> actors = stage.getActors();
+        for (Actor actor : actors){
+            if (actor != background && actor !=lastActor) {
+                actor.addAction(Actions.fadeOut(0.25f));
+            }
+        }
+    }
+
+    public void setUpLeaderbordsButton() {
+        leaderbordsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "leaderboard", false);
+        leaderbordsButton.setPosition(Constants.WIDTH * 3 / 4 - leaderbordsButton.getWidth() * 3 / 5,
                 Constants.HEIGHT / 2 - leaderbordsButton.getHeight() * 2);
         leaderbordsButton.addListener(new ChangeListener() {
             @Override
@@ -96,9 +118,9 @@ public class MenuScreen implements Screen {
     }
 
 
-    public void setUpSettingsButton(){
-        settingsButton = new GameButton(8,4,"settings",false);
-        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth()* 2/5, Constants.HEIGHT / 4 - settingsButton.getHeight());
+    public void setUpSettingsButton() {
+        settingsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "settings", false);
+        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth() * 2 / 5, Constants.HEIGHT / 4 - settingsButton.getHeight());
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -106,7 +128,6 @@ public class MenuScreen implements Screen {
         });
         stage.addActor(settingsButton);
     }
-
 
 
     @Override

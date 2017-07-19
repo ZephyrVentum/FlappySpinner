@@ -81,7 +81,7 @@ public class WorldUtils {
         bodyTop.createFixture(shape, 12f);
         bodyTop.resetMassData();
         shape.dispose();
-        bodyTop.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
+        //bodyTop.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
         Array<Body> bodies = new Array<Body>();
         bodies.add(bodyTop);
         bodies.add(createBottomTube(world, posX, posY));
@@ -99,7 +99,7 @@ public class WorldUtils {
         body.createFixture(shape, 12f);
         body.resetMassData();
         shape.dispose();
-        body.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
+        //body.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
         return body;
     }
 

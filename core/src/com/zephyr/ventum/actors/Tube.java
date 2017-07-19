@@ -61,6 +61,16 @@ public class Tube extends BaseActor {
                 0);
     }
 
+    public void startMove(){
+        topTubeBody.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
+        bottomTubeBody.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
+    }
+
+    public void stopMove(){
+        topTubeBody.setLinearVelocity(0.0f, 0.0f);
+        bottomTubeBody.setLinearVelocity(0.0f, 0.0f);
+    }
+
     private boolean isLeftSideReached() {
         return ((topTubeBody.getPosition().x + Constants.TUBE_WIDTH) <= 0);
     }
