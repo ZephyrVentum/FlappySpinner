@@ -27,6 +27,11 @@ public class Spinner extends BaseActor {
         spinnerRotateAction();
     }
 
+    public float getSpinnerBodyX(){
+        return body.getPosition().x;
+    }
+
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);

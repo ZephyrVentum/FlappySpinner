@@ -22,6 +22,7 @@ public class Constants {
     public static final float TUBE_SPEED = -9f;
 
     public static final float LOGO_HEIGHT = 11.45f;
+    public static final float ONPAUSE_HEIGHT = 11.2f;
 
     public static final float SPINNER_SIZE = 1f;
     public static final float SPENNER_DENSITY = 0.55f;
@@ -41,11 +42,13 @@ public class Constants {
     public static final String GROUND_IMAGE_PATH = "ground.png";
     public static final String SKY_IMAGE_PATH = "sky.png";
     public static final String LOGO_IMAGE_PATH = "logo.png";
+    public static final String PAUSE_IMAGE_PATH = "on_pause.png";
 
     public static final String BACKGROUND_IMAGE_NAME = "background";
     public static final String GROUND_IMAGE_NAME = "ground";
     public static final String SKY_IMAGE_NAME = "sky";
     public static final String LOGO_IMAGE_NAME = "logo";
+    public static final String PAUSE_IMAGE_NAME = "onpause";
 
     public static final String SPINNER_NAME = "spinner";
 

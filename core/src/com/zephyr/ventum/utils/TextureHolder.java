@@ -32,6 +32,9 @@ public class TextureHolder {
         textureRegionHashMap.put(Constants.LOGO_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.LOGO_IMAGE_PATH))));
 
+        textureRegionHashMap.put(Constants.PAUSE_IMAGE_NAME,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.PAUSE_IMAGE_PATH))));
+
         textureRegionHashMap.put(Constants.SKY_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.SKY_IMAGE_PATH))));
 

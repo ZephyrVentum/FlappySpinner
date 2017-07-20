@@ -34,6 +34,10 @@ public class Tube extends BaseActor {
         }
     }
 
+    public float getTubeBodyX(){
+        return topTubeBody.getPosition().x;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);

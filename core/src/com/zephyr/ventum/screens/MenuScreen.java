@@ -59,7 +59,7 @@ public class MenuScreen implements Screen {
     public void setUpLogo(){
         logo = new Image(TextureHolder.getTextureRegion(Constants.LOGO_IMAGE_NAME));
         logo.setSize(Constants.WIDTH, Constants.LOGO_HEIGHT);
-        logo.setPosition(0,Constants.HEIGHT *2/3 - logo.getHeight()/2);
+        logo.setPosition(0,Constants.HEIGHT *2/3 - logo.getHeight()/3);
         stage.addActor(logo);
     }
 
