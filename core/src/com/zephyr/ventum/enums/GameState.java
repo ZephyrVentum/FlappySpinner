@@ -7,5 +7,6 @@ package com.zephyr.ventum.enums;
 public enum GameState {
     RUN,
     PAUSE,
-    RESUME
+    RESUME,
+    FINISH
 }

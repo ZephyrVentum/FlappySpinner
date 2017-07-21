@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -34,13 +38,13 @@ import com.zephyr.ventum.utils.WorldUtils;
  * Created by ZiFir on 08.07.2017.
  */
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, ContactListener {
 
     private Stage stage;
     private Game aGame;
     private World world;
-    private Image onPause, onResume;
-    private GameButton pauseButton;
+    private Image onPause, onResume, onFinish;
+    private GameButton pauseButton, playButton, homeButton;
     private Label scoreLabel;
 
     private GameState state;
@@ -64,6 +68,7 @@ public class GameScreen implements Screen {
         aGame = game;
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         world = WorldUtils.createWorld();
+        world.setContactListener(this);
         Gdx.input.setInputProcessor(stage);
 
         state = GameState.RESUME;
@@ -72,11 +77,17 @@ public class GameScreen implements Screen {
         setUpTube();
         setUpGround();
         setUpSpinner();
-        setUpPauseButton();
+
+
         setUpOnPause();
         setUpOnResume();
-        setUpScoreLabel();
+        setUpOnFinish();
 
+        setUpPauseButton();
+        setUpPlayButton();
+        setUpHomeButton();
+
+        setUpScoreLabel();
     }
 
     public void setUpTube() {
@@ -108,9 +119,9 @@ public class GameScreen implements Screen {
         labelStyle.font = bitmapFont;
         labelStyle.fontColor = new Color(0xff8a00ff);
         scoreLabel = new Label("" + SCORE, labelStyle);
-        scoreLabel.setFontScale(0.15f);
-        scoreLabel.setHeight(2f);
-        scoreLabel.setPosition(Constants.WIDTH/2 - scoreLabel.getWidth()/2, Constants.HEIGHT *4/5 -scoreLabel.getHeight()/2);
+        scoreLabel.setFontScale(0.17f);
+        scoreLabel.setHeight(4f);
+        scoreLabel.setPosition(Constants.WIDTH / 2 - scoreLabel.getWidth() / 2, Constants.HEIGHT * 4 / 5 - scoreLabel.getHeight() / 2);
         scoreLabel.setAlignment(Align.center);
         stage.addActor(scoreLabel);
     }
@@ -120,30 +131,28 @@ public class GameScreen implements Screen {
         onPause.setVisible(false);
         onPause.setSize(Constants.WIDTH, Constants.ONPAUSE_HEIGHT);
         onPause.setPosition(Constants.WIDTH / 2 - onPause.getWidth() / 2, Constants.HEIGHT / 2 - onPause.getHeight() / 2);
-        onPause.setOrigin(onPause.getWidth()/2, onPause.getHeight()/2);
-        SequenceAction sequenceAction = new SequenceAction();
-        sequenceAction.addAction(Actions.scaleTo(1.3f,1.3f,1.2f));
-        sequenceAction.addAction(Actions.scaleTo(1f,1f,1.2f));
-        RepeatAction infiniteLoop = new RepeatAction();
-        infiniteLoop.setCount(RepeatAction.FOREVER);
-        infiniteLoop.setAction(sequenceAction);
-        onPause.addAction(infiniteLoop);
+        onPause.setOrigin(onPause.getWidth() / 2, onPause.getHeight() / 2);
+        onPause.addAction(setOnStateImageAction(1.2f));
         stage.addActor(onPause);
     }
 
-    public void setUpOnResume(){
+    public void setUpOnFinish() {
+        onFinish = new Image(TextureHolder.getTextureRegion(Constants.FINISH_IMAGE_NAME));
+        onFinish.setVisible(false);
+        onFinish.setSize(Constants.WIDTH, Constants.ONFINISH_HEIGHT);
+        onFinish.setPosition(Constants.WIDTH / 2 - onFinish.getWidth() / 2, Constants.HEIGHT / 2 - onFinish.getHeight() / 5);
+        onFinish.setOrigin(onFinish.getWidth() / 2, onFinish.getHeight() / 2);
+        onFinish.addAction(setOnStateImageAction(1.2f));
+        stage.addActor(onFinish);
+    }
+
+    public void setUpOnResume() {
         onResume = new Image(TextureHolder.getTextureRegion(Constants.RESUME_IMAGE_NAME));
         onResume.setAlign(Align.center);
-        onResume.setSize(Constants.ONRESUME_WIDTH,Constants.ONRESUME_HEIGHT);
-        onResume.setOrigin(onResume.getWidth()/2, onResume.getHeight()/2);
-        onResume.setPosition(Constants.WIDTH/2 - onResume.getWidth()/2, Constants.HEIGHT/2 - onResume.getHeight()*1.5f);
-        SequenceAction sequenceAction = new SequenceAction();
-        sequenceAction.addAction(Actions.scaleTo(1.3f,1.3f,0.7f));
-        sequenceAction.addAction(Actions.scaleTo(1f,1f,0.7f));
-        RepeatAction infiniteLoop = new RepeatAction();
-        infiniteLoop.setCount(RepeatAction.FOREVER);
-        infiniteLoop.setAction(sequenceAction);
-        onResume.addAction(infiniteLoop);
+        onResume.setSize(Constants.ONRESUME_WIDTH, Constants.ONRESUME_HEIGHT);
+        onResume.setOrigin(onResume.getWidth() / 2, onResume.getHeight() / 2);
+        onResume.setPosition(Constants.WIDTH / 2 - onResume.getWidth() / 2, Constants.HEIGHT / 2 - onResume.getHeight() * 1.5f);
+        onResume.addAction(setOnStateImageAction(0.7f));
         stage.addActor(onResume);
     }
 
@@ -154,17 +163,39 @@ public class GameScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (pauseButton.isChecked()) {
-                    state = GameState.PAUSE;
-                    onPause.setVisible(true);
-                    onResume.setVisible(false);
+                    changeGameState(GameState.PAUSE);
                 } else {
-                    state = GameState.RESUME;
-                    onPause.setVisible(false);
-                    onResume.setVisible(true);
+                    changeGameState(GameState.RESUME);
                 }
             }
         });
         stage.addActor(pauseButton);
+    }
+
+    public void setUpPlayButton() {
+        playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
+        playButton.setPosition(Constants.WIDTH /5  + playButton.getWidth(), Constants.HEIGHT/2 - playButton.getHeight()*1.55f);
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                aGame.setScreen(new GameScreen(aGame));
+            }
+        });
+        playButton.setVisible(false);
+        stage.addActor(playButton);
+    }
+
+    public void setUpHomeButton() {
+        homeButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, "home", false);
+        homeButton.setPosition(Constants.WIDTH /3 - homeButton.getWidth()/2, Constants.HEIGHT/2 - homeButton.getHeight()*1.55f);
+        homeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                aGame.setScreen(new MenuScreen(aGame));
+            }
+        });
+        homeButton.setVisible(false);
+        stage.addActor(homeButton);
     }
 
     @Override
@@ -175,9 +206,9 @@ public class GameScreen implements Screen {
 
         stage.draw();
 
-        switch (state){
+        switch (state) {
             case RESUME:
-                if(isFirstClick) {
+                if (isFirstClick) {
                     stage.act(delta);
                 } else {
                     spinner.act(delta);
@@ -188,7 +219,11 @@ public class GameScreen implements Screen {
                 onPause.act(delta);
                 break;
             case RUN:
-                checkForScore();
+                stage.act(delta);
+                checkForSpinnerState();
+                doPhysicsStep(delta);
+                break;
+            case FINISH:
                 stage.act(delta);
                 doPhysicsStep(delta);
                 break;
@@ -197,14 +232,20 @@ public class GameScreen implements Screen {
         //renderer.render(world, stage.getCamera().combined);
     }
 
-    public void checkForScore(){
-        if (tubeFirst.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeFirst.isSpinnerScoreWrited()){
+    public void checkForSpinnerState() {
+        if (spinner.getSpinnerBodyX() < -1 || spinner.getSpinnerBodyX() > Constants.WIDTH + 1) {
+            state = GameState.FINISH;
+            changeGameState(GameState.FINISH);
+        }
+        if (tubeFirst.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeFirst.isSpinnerScoreWrited()) {
             tubeFirst.setSpinnerScoreWrited(true);
             scoreLabel.setText("" + ++SCORE);
+            return;
         }
-        if (tubeSecond.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeSecond.isSpinnerScoreWrited()){
+        if (tubeSecond.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeSecond.isSpinnerScoreWrited()) {
             tubeSecond.setSpinnerScoreWrited(true);
             scoreLabel.setText("" + ++SCORE);
+            return;
         }
     }
 
@@ -223,12 +264,37 @@ public class GameScreen implements Screen {
             if (pauseButton.getRectangle().contains(screenCoords) || state == GameState.PAUSE) {
                 return;
             }
-            if (state == GameState.RESUME){
-                onResume.setVisible(false);
-                state = GameState.RUN;
-                isFirstClick = false;
+            if (state == GameState.RESUME) {
+                changeGameState(GameState.RUN);
             }
             spinner.jump(delta);
+        }
+    }
+
+    public void changeGameState(GameState state) {
+        switch (state) {
+            case RESUME:
+                this.state = GameState.RESUME;
+                onPause.setVisible(false);
+                onResume.setVisible(true);
+                pauseButton.setVisible(true);
+                break;
+            case RUN:
+                onResume.setVisible(false);
+                this.state = GameState.RUN;
+                isFirstClick = false;
+                break;
+            case PAUSE:
+                this.state = GameState.PAUSE;
+                onPause.setVisible(true);
+                onResume.setVisible(false);
+                break;
+            case FINISH:
+                onFinish.setVisible(true);
+                pauseButton.setVisible(false);
+                playButton.setVisible(true);
+                homeButton.setVisible(true);
+                break;
         }
     }
 
@@ -260,5 +326,35 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public void beginContact(Contact contact) {
+        System.out.println("CONTACT");
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
+    }
+
+    public RepeatAction setOnStateImageAction(float duration) {
+        SequenceAction sequenceAction = new SequenceAction();
+        sequenceAction.addAction(Actions.scaleTo(1.3f, 1.3f, duration));
+        sequenceAction.addAction(Actions.scaleTo(1f, 1f, duration));
+        RepeatAction infiniteLoop = new RepeatAction();
+        infiniteLoop.setCount(RepeatAction.FOREVER);
+        infiniteLoop.setAction(sequenceAction);
+        return infiniteLoop;
     }
 }

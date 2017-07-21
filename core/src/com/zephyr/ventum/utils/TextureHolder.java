@@ -35,6 +35,9 @@ public class TextureHolder {
         textureRegionHashMap.put(Constants.PAUSE_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.PAUSE_IMAGE_PATH))));
 
+        textureRegionHashMap.put(Constants.FINISH_IMAGE_NAME,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.FINISH_IMAGE_PATH))));
+
         textureRegionHashMap.put(Constants.RESUME_IMAGE_NAME,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.RESUME_IMAGE_PATH))));
 

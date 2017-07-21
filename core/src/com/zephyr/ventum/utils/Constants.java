@@ -23,6 +23,7 @@ public class Constants {
 
     public static final float LOGO_HEIGHT = 11.45f;
     public static final float ONPAUSE_HEIGHT = 11.2f;
+    public static final float ONFINISH_HEIGHT = 11.2f;
     public static final float ONRESUME_HEIGHT = 3.075f;
     public static final float ONRESUME_WIDTH = 14f;
 
@@ -35,7 +36,8 @@ public class Constants {
     public static final float RECTANGLE_BUTTON_WIDTH = 7.5f;
     public static final float RECTANGLE_BUTTON_HEIGHT = 3.625f;
 
-    public static final float SQUARE_BUTTON_SIZE = 3.5f;
+    public static final float SQUARE_BUTTON_SIZE = 3.25f;
+    public static final float LARGE_SQUARE_BUTTON_SIZE = 3.625f;
 
     public static final String PHYSICS_PATH = "physics.xml";
     public static final String SPRITES_PATH = "sprites.txt";
@@ -45,6 +47,7 @@ public class Constants {
     public static final String SKY_IMAGE_PATH = "sky.png";
     public static final String LOGO_IMAGE_PATH = "logo.png";
     public static final String PAUSE_IMAGE_PATH = "on_pause.png";
+    public static final String FINISH_IMAGE_PATH = "gameover.png";
     public static final String RESUME_IMAGE_PATH = "on_resume.png";
 
     public static final String BACKGROUND_IMAGE_NAME = "background";
@@ -53,6 +56,7 @@ public class Constants {
     public static final String LOGO_IMAGE_NAME = "logo";
     public static final String PAUSE_IMAGE_NAME = "onpause";
     public static final String RESUME_IMAGE_NAME = "onresume";
+    public static final String FINISH_IMAGE_NAME = "onfinish";
 
     public static final String SPINNER_NAME = "spinner";
 
