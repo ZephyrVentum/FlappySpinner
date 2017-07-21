@@ -18,7 +18,9 @@ public class Ground extends BaseActor {
     private Vector2 groundPositions1, groundPositions2;
     private Body ground, sky;
 
-    private static final float SPEED = Constants.TUBE_SPEED;
+    private int speedState = 1;
+
+    private float SPEED = Constants.TUBE_SPEED;
 
     public Ground(Array<Body> bodies) {
 
@@ -41,14 +43,22 @@ public class Ground extends BaseActor {
         }
     }
 
+    public void stopMove(){
+        speedState = 0;
+    }
+
+    public void startMove(){
+        speedState = 1;
+    }
+
     private void resetBackgroundPositions(float delta){
         groundPositions1.x = groundPositions2.x;
         groundPositions2.x = Constants.WIDTH + delta*SPEED;
     }
 
     private void updateBackgroundPositions(float delta) {
-        groundPositions1.x += delta * SPEED;
-        groundPositions2.x += delta * SPEED;
+        groundPositions1.x += delta * SPEED * speedState;
+        groundPositions2.x += delta * SPEED * speedState;
     }
 
     private boolean isLeftSideReached(float delta) {

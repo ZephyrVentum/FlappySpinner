@@ -19,7 +19,7 @@ public class WorldUtils {
 
     public static World createWorld() {
 
-        return new World(new Vector2(0, 0), true);
+        return new World(Constants.GRAVITY, true);
     }
 
 

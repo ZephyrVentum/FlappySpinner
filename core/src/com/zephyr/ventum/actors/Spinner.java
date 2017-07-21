@@ -27,6 +27,11 @@ public class Spinner extends BaseActor {
         spinnerRotateAction();
     }
 
+    public float getSpinnerBodyX(){
+        return body.getPosition().x;
+    }
+
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -47,6 +52,11 @@ public class Spinner extends BaseActor {
         infiniteLoop.setCount(RepeatAction.FOREVER);
         infiniteLoop.setAction(rotateAction);
         this.addAction(infiniteLoop);
+    }
+
+    public void stopMove(){
+        //body.setTransform(body.getPosition().x, body.getPosition().y, 0);
+        body.setLinearVelocity(0,0);
     }
 
     public void jump(float delta) {
