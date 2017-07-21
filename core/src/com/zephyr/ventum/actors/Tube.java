@@ -18,6 +18,8 @@ public class Tube extends BaseActor {
     private TextureRegion topTubeTexture, bottomTubeTexture;
     private Body topTubeBody, bottomTubeBody;
 
+    private boolean isSpinnerScoreWrited = false;
+
     public Tube(Array<Body> bodies) {
 
         topTubeTexture = TextureHolder.getTextureRegion(Constants.TOP_TUBE_NAME);
@@ -63,17 +65,16 @@ public class Tube extends BaseActor {
         bottomTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH,
                 topTubeBody.getPosition().y - Constants.TUBE_SPACING - Constants.TUBE_HEIGHT,
                 0);
+        setSpinnerScoreWrited(false);
     }
 
-//    public void startMove(){
-//        topTubeBody.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
-//        bottomTubeBody.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
-//    }
-//
-//    public void stopMove(){
-//        topTubeBody.setLinearVelocity(0.0f, 0.0f);
-//        bottomTubeBody.setLinearVelocity(0.0f, 0.0f);
-//    }
+    public boolean isSpinnerScoreWrited() {
+        return isSpinnerScoreWrited;
+    }
+
+    public void setSpinnerScoreWrited(boolean spinnerScoreWrited) {
+        isSpinnerScoreWrited = spinnerScoreWrited;
+    }
 
     private boolean isLeftSideReached() {
         return ((topTubeBody.getPosition().x + Constants.TUBE_WIDTH) <= 0);

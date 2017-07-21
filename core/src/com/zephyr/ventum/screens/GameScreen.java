@@ -43,7 +43,6 @@ public class GameScreen implements Screen {
     private GameButton pauseButton;
     private Label scoreLabel;
 
-    private BitmapFont bitmapFont;
     private GameState state;
 
     private Ground ground;
@@ -108,10 +107,11 @@ public class GameScreen implements Screen {
         BitmapFont bitmapFont = new BitmapFont();
         labelStyle.font = bitmapFont;
         labelStyle.fontColor = new Color(0xff8a00ff);
-        scoreLabel = new Label("Score: " + SCORE, labelStyle);
-        scoreLabel.setPosition(0.5f, 0.5f);
+        scoreLabel = new Label("" + SCORE, labelStyle);
         scoreLabel.setFontScale(0.15f);
         scoreLabel.setHeight(2f);
+        scoreLabel.setPosition(Constants.WIDTH/2 - scoreLabel.getWidth()/2, Constants.HEIGHT *4/5 -scoreLabel.getHeight()/2);
+        scoreLabel.setAlignment(Align.center);
         stage.addActor(scoreLabel);
     }
 
@@ -120,6 +120,14 @@ public class GameScreen implements Screen {
         onPause.setVisible(false);
         onPause.setSize(Constants.WIDTH, Constants.ONPAUSE_HEIGHT);
         onPause.setPosition(Constants.WIDTH / 2 - onPause.getWidth() / 2, Constants.HEIGHT / 2 - onPause.getHeight() / 2);
+        onPause.setOrigin(onPause.getWidth()/2, onPause.getHeight()/2);
+        SequenceAction sequenceAction = new SequenceAction();
+        sequenceAction.addAction(Actions.scaleTo(1.3f,1.3f,1.2f));
+        sequenceAction.addAction(Actions.scaleTo(1f,1f,1.2f));
+        RepeatAction infiniteLoop = new RepeatAction();
+        infiniteLoop.setCount(RepeatAction.FOREVER);
+        infiniteLoop.setAction(sequenceAction);
+        onPause.addAction(infiniteLoop);
         stage.addActor(onPause);
     }
 
@@ -177,14 +185,27 @@ public class GameScreen implements Screen {
                 }
                 break;
             case PAUSE:
+                onPause.act(delta);
                 break;
             case RUN:
+                checkForScore();
                 stage.act(delta);
                 doPhysicsStep(delta);
                 break;
         }
 
         //renderer.render(world, stage.getCamera().combined);
+    }
+
+    public void checkForScore(){
+        if (tubeFirst.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeFirst.isSpinnerScoreWrited()){
+            tubeFirst.setSpinnerScoreWrited(true);
+            scoreLabel.setText("" + ++SCORE);
+        }
+        if (tubeSecond.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeSecond.isSpinnerScoreWrited()){
+            tubeSecond.setSpinnerScoreWrited(true);
+            scoreLabel.setText("" + ++SCORE);
+        }
     }
 
     private void doPhysicsStep(float deltaTime) {
