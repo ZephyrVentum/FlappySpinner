@@ -102,6 +102,14 @@ public class MenuScreen implements Screen {
         marketButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                float delay = 0.3f;
+                setUpFadeOut();
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new MarketScreen(game));
+                    }
+                }, delay);
             }
         });
         stage.addActor(marketButton);
