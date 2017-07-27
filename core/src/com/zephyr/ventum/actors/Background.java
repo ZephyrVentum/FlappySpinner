@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 
 /**
  * Created by sashaklimenko on 7/12/17.
@@ -19,7 +19,7 @@ public class Background extends Actor {
     private Vector2 backgroundPosition1, backgroundPosition2;
 
     public Background() {
-        textureRegion = TextureHolder.getTextureRegion(Constants.BACKGROUND_IMAGE_NAME);
+        textureRegion = AssetsManager.getTextureRegion(Constants.BACKGROUND_IMAGE_NAME);
         backgroundPosition1 = new Vector2(0, 0);
         backgroundPosition2 = new Vector2(Constants.WIDTH, 0);
     }

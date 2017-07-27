@@ -4,28 +4,21 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 
 /**
  * Created by sashaklimenko on 7/6/17.
@@ -56,10 +49,10 @@ public class MenuScreen implements Screen {
         setUpLogo();
     }
 
-    public void setUpLogo(){
-        logo = new Image(TextureHolder.getTextureRegion(Constants.LOGO_IMAGE_NAME));
+    public void setUpLogo() {
+        logo = new Image(AssetsManager.getTextureRegion(Constants.LOGO_IMAGE_NAME));
         logo.setSize(Constants.WIDTH, Constants.LOGO_HEIGHT);
-        logo.setPosition(0,Constants.HEIGHT *2/3 - logo.getHeight()/3);
+        logo.setPosition(0, Constants.HEIGHT * 2 / 3 - logo.getHeight() / 3);
         stage.addActor(logo);
     }
 
@@ -72,12 +65,13 @@ public class MenuScreen implements Screen {
         setUpPlayButton();
         setUpLeaderbordsButton();
         setUpSettingsButton();
+        setUpMarketButton();
     }
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
         playButton.setPosition(Constants.WIDTH / 4 - playButton.getWidth() * 2 / 5,
-                Constants.HEIGHT / 2 - playButton.getHeight() * 2);
+                Constants.HEIGHT / 2 - playButton.getHeight() * 2.5f);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -94,33 +88,30 @@ public class MenuScreen implements Screen {
         stage.addActor(playButton);
     }
 
-    public void setUpFadeOut() {
-        Image lastActor = new Image();
-        stage.addActor(lastActor);
-        Array<Actor> actors = stage.getActors();
-        for (Actor actor : actors){
-            if (actor != background && actor !=lastActor) {
-                actor.addAction(Actions.fadeOut(0.25f));
-            }
-        }
-    }
-
-    public void setUpLeaderbordsButton() {
-        leaderbordsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "leaderboard", false);
-        leaderbordsButton.setPosition(Constants.WIDTH * 3 / 4 - leaderbordsButton.getWidth() * 3 / 5,
-                Constants.HEIGHT / 2 - leaderbordsButton.getHeight() * 2);
-        leaderbordsButton.addListener(new ChangeListener() {
+    public void setUpMarketButton() {
+        marketButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "market", false);
+        marketButton.setPosition(Constants.WIDTH * 3 / 4 - marketButton.getWidth() * 3 / 5,
+                Constants.HEIGHT / 2 - marketButton.getHeight() * 2.5f);
+        marketButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                float delay = 0.3f;
+                setUpFadeOut();
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        game.setScreen(new MarketScreen(game));
+                    }
+                }, delay);
             }
         });
-        stage.addActor(leaderbordsButton);
+        stage.addActor(marketButton);
     }
 
 
     public void setUpSettingsButton() {
         settingsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "settings", false);
-        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth() * 2 / 5, Constants.HEIGHT / 4 - settingsButton.getHeight());
+        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth() * 2 / 5, Constants.HEIGHT / 4 - settingsButton.getHeight()*1.35f);
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -129,10 +120,16 @@ public class MenuScreen implements Screen {
         stage.addActor(settingsButton);
     }
 
-
-    @Override
-    public void show() {
-
+    public void setUpLeaderbordsButton() {
+        leaderbordsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "leaderboard", false);
+        leaderbordsButton.setPosition(Constants.WIDTH * 3 / 4 - leaderbordsButton.getWidth() * 3 / 5,
+                Constants.HEIGHT / 4 - leaderbordsButton.getHeight()*1.35f);
+        leaderbordsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            }
+        });
+        stage.addActor(leaderbordsButton);
     }
 
     @Override
@@ -146,9 +143,15 @@ public class MenuScreen implements Screen {
         doPhysicsStep(delta);
     }
 
-    @Override
-    public void resize(int width, int height) {
-
+    public void setUpFadeOut() {
+        Image lastActor = new Image();
+        stage.addActor(lastActor);
+        Array<Actor> actors = stage.getActors();
+        for (Actor actor : actors) {
+            if (actor != background && actor != lastActor) {
+                actor.addAction(Actions.fadeOut(0.25f));
+            }
+        }
     }
 
     private void doPhysicsStep(float deltaTime) {
@@ -159,6 +162,17 @@ public class MenuScreen implements Screen {
             accumulator -= TIME_STEP;
         }
     }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
 
     @Override
     public void pause() {

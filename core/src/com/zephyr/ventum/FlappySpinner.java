@@ -3,9 +3,9 @@ package com.zephyr.ventum;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.zephyr.ventum.screens.GameScreen;
 import com.zephyr.ventum.screens.MenuScreen;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.GamePreferences;
 
 public class FlappySpinner extends Game {
 
@@ -14,7 +14,8 @@ public class FlappySpinner extends Game {
 	@Override
 	public void create () {
 		startMusic();
-		TextureHolder.initAssets();
+		AssetsManager.initAssets();
+		GamePreferences.getInstance();
 		this.setScreen(new MenuScreen(this));
 	}
 

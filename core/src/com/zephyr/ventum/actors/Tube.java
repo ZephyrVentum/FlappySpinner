@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 import com.zephyr.ventum.utils.WorldUtils;
 
 /**
@@ -22,8 +22,8 @@ public class Tube extends BaseActor {
 
     public Tube(Array<Body> bodies) {
 
-        topTubeTexture = TextureHolder.getTextureRegion(Constants.TOP_TUBE_NAME);
-        bottomTubeTexture = TextureHolder.getTextureRegion(Constants.BOTTOM_TUBE_NAME);
+        topTubeTexture = AssetsManager.getTextureRegion(Constants.TOP_TUBE_NAME);
+        bottomTubeTexture = AssetsManager.getTextureRegion(Constants.BOTTOM_TUBE_NAME);
 
         topTubeBody = bodies.first();//first item
         bottomTubeBody = bodies.peek();//last item
