@@ -3,8 +3,7 @@ package com.zephyr.ventum.actors;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 
 /**
  * Created by sashaklimenko on 7/17/17.
@@ -17,7 +16,7 @@ public class GameButton extends Button {
     public GameButton(float WIDTH, float HEIGHT, String drawable, boolean isCheckable) {
 
         Skin skin = new Skin();
-        skin.addRegions(TextureHolder.getTextureAtlas());
+        skin.addRegions(AssetsManager.getTextureAtlas());
 
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
         buttonStyle.up = skin.getDrawable(drawable);

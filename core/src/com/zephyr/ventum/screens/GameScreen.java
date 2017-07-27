@@ -31,7 +31,8 @@ import com.zephyr.ventum.actors.Ground;
 import com.zephyr.ventum.actors.Spinner;
 import com.zephyr.ventum.actors.Tube;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.GamePreferences;
 import com.zephyr.ventum.utils.WorldUtils;
 
 /**
@@ -46,6 +47,7 @@ public class GameScreen implements Screen, ContactListener {
     private Image onPause, onResume, onFinish;
     private GameButton pauseButton, playButton, homeButton;
     private Label scoreLabel;
+    private GamePreferences preferences;
 
     private GameState state;
 
@@ -65,6 +67,9 @@ public class GameScreen implements Screen, ContactListener {
 
     public GameScreen(Game game) {
         Box2D.init();
+
+        preferences = new GamePreferences();
+
         aGame = game;
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         world = WorldUtils.createWorld();
@@ -127,7 +132,7 @@ public class GameScreen implements Screen, ContactListener {
     }
 
     public void setUpOnPause() {
-        onPause = new Image(TextureHolder.getTextureRegion(Constants.PAUSE_IMAGE_NAME));
+        onPause = new Image(AssetsManager.getTextureRegion(Constants.PAUSE_IMAGE_NAME));
         onPause.setVisible(false);
         onPause.setSize(Constants.WIDTH, Constants.ONPAUSE_HEIGHT);
         onPause.setPosition(Constants.WIDTH / 2 - onPause.getWidth() / 2, Constants.HEIGHT / 2 - onPause.getHeight() / 2);
@@ -137,7 +142,7 @@ public class GameScreen implements Screen, ContactListener {
     }
 
     public void setUpOnFinish() {
-        onFinish = new Image(TextureHolder.getTextureRegion(Constants.FINISH_IMAGE_NAME));
+        onFinish = new Image(AssetsManager.getTextureRegion(Constants.FINISH_IMAGE_NAME));
         onFinish.setVisible(false);
         onFinish.setSize(Constants.WIDTH, Constants.ONFINISH_HEIGHT);
         onFinish.setPosition(Constants.WIDTH / 2 - onFinish.getWidth() / 2, Constants.HEIGHT / 2 - onFinish.getHeight() / 5);
@@ -147,7 +152,7 @@ public class GameScreen implements Screen, ContactListener {
     }
 
     public void setUpOnResume() {
-        onResume = new Image(TextureHolder.getTextureRegion(Constants.RESUME_IMAGE_NAME));
+        onResume = new Image(AssetsManager.getTextureRegion(Constants.RESUME_IMAGE_NAME));
         onResume.setAlign(Align.center);
         onResume.setSize(Constants.ONRESUME_WIDTH, Constants.ONRESUME_HEIGHT);
         onResume.setOrigin(onResume.getWidth() / 2, onResume.getHeight() / 2);
@@ -294,6 +299,12 @@ public class GameScreen implements Screen, ContactListener {
                 pauseButton.setVisible(false);
                 playButton.setVisible(true);
                 homeButton.setVisible(true);
+                if (SCORE > preferences.getMaxScore()){
+                    preferences.setMaxScore(SCORE);
+                    scoreLabel.setText("New record! \n" + SCORE);
+                } else {
+                    scoreLabel.setText("Score" + SCORE + '\n' + "Best: " + preferences.getMaxScore());
+                }
                 break;
         }
     }

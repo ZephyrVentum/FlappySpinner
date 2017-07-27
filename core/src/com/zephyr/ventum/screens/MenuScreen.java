@@ -4,28 +4,21 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 
 /**
  * Created by sashaklimenko on 7/6/17.
@@ -57,7 +50,7 @@ public class MenuScreen implements Screen {
     }
 
     public void setUpLogo() {
-        logo = new Image(TextureHolder.getTextureRegion(Constants.LOGO_IMAGE_NAME));
+        logo = new Image(AssetsManager.getTextureRegion(Constants.LOGO_IMAGE_NAME));
         logo.setSize(Constants.WIDTH, Constants.LOGO_HEIGHT);
         logo.setPosition(0, Constants.HEIGHT * 2 / 3 - logo.getHeight() / 3);
         stage.addActor(logo);

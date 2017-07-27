@@ -58,7 +58,15 @@ public class Constants {
     public static final String RESUME_IMAGE_NAME = "onresume";
     public static final String FINISH_IMAGE_NAME = "onfinish";
 
-    public static final String SPINNER_NAME = "spinner";
+    public static final String SPINNER_STANDARD_SKIN = "standart_skin";
+    public static final String SPINNER_SILVER_SKIN = "silver_skin";
+    public static final String SPINNER_RAINBOW_SKIN = "rainbow_skin";
+    public static final String SPINNER_KITTY_SKIN = "kitty_skin";
+    public static final String SPINNER_ARMY_SKIN = "army_skin";
+    public static final String SPINNER_FIRE_SKIN = "fire_skin";
+    public static final String SPINNER_LIGHT_SKIN = "light_skin";
+    public static final String SPINNER_GOLDEN_SKIN = "golden_skin";
+    public static final String SPINNER_HYPNO_SKIN = "hypno_skin";
 
     public static final String BOTTOM_TUBE_NAME = "bottomtube";
     public static final String TOP_TUBE_NAME = "toptube";
@@ -90,10 +98,34 @@ public class Constants {
     public static final String SOUND_PATH = "sfx_wing.ogg";
 
     public static final Vector2 SPINNER_POSITIONS = new Vector2(
-            WIDTH / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionWidth() * 0.05f / 2,
-            HEIGHT / 2 - TextureHolder.getTextureRegion(SPINNER_NAME).getRegionHeight() * 0.05f / 2);
+            WIDTH / 2 - AssetsManager.getTextureRegion(SPINNER_STANDARD_SKIN).getRegionWidth() * 0.05f / 2,
+            HEIGHT / 2 - AssetsManager.getTextureRegion(SPINNER_STANDARD_SKIN).getRegionHeight() * 0.05f / 2);
 
     public static final Vector2 GROUND_POSITIONS = new Vector2(0, 0);
 
+    public static final String[] SPINNER_SKINES = {
+            Constants.SPINNER_STANDARD_SKIN,
+            Constants.SPINNER_LIGHT_SKIN,
+            Constants.SPINNER_SILVER_SKIN,
+            Constants.SPINNER_GOLDEN_SKIN,
+            Constants.SPINNER_RAINBOW_SKIN,
+            Constants.SPINNER_FIRE_SKIN,
+            Constants.SPINNER_ARMY_SKIN,
+            Constants.SPINNER_HYPNO_SKIN,
+            Constants.SPINNER_KITTY_SKIN
+    };
 
+    public static int SKIN_COUNT = SPINNER_SKINES.length;
+
+    public static final String[] SKINS_NAMES = {
+            "Standard Skin",
+            "Neon Light",
+            "Silver Name",
+            "Golden Skin",
+            "Rainbow",
+            "Sacred Fire",
+            "ATO Skin",
+            "Hypno Spinner",
+            "Hello Kitty"
+    };
 }

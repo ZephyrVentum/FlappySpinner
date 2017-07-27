@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.zephyr.ventum.utils.Constants;
-import com.zephyr.ventum.utils.TextureHolder;
+import com.zephyr.ventum.utils.AssetsManager;
 
 /**
  * Created by sashaklimenko on 7/13/17.
@@ -27,8 +27,8 @@ public class Ground extends BaseActor {
         ground = bodies.first();//first item
         sky = bodies.peek();//last item
 
-        textureRegionGround = TextureHolder.getTextureRegion(Constants.GROUND_IMAGE_NAME);
-        textureRegionSky = TextureHolder.getTextureRegion(Constants.SKY_IMAGE_NAME);
+        textureRegionGround = AssetsManager.getTextureRegion(Constants.GROUND_IMAGE_NAME);
+        textureRegionSky = AssetsManager.getTextureRegion(Constants.SKY_IMAGE_NAME);
 
         groundPositions1 = new Vector2(0, 0);
         groundPositions2 = new Vector2(Constants.WIDTH, 0);
