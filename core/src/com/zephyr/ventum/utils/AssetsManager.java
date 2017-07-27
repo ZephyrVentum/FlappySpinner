@@ -78,7 +78,10 @@ public class AssetsManager {
 
         textureRegionHashMap.put(Constants.BOTTOM_TUBE_NAME,
                 textureAtlas.findRegion(Constants.BOTTOM_TUBE_NAME));
-        //
+
+        //coin
+        textureRegionHashMap.put(Constants.COIN_NAME,
+                textureAtlas.findRegion(Constants.COIN_NAME));
     }
 
     public static TextureRegion getTextureRegion(String key) {

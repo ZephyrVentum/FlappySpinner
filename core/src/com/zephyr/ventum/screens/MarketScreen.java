@@ -2,8 +2,11 @@ package com.zephyr.ventum.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -19,6 +23,7 @@ import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.models.Skin;
 import com.zephyr.ventum.utils.AssetsManager;
 import com.zephyr.ventum.utils.Constants;
+import com.zephyr.ventum.utils.GamePreferences;
 
 import java.util.ArrayList;
 
@@ -29,25 +34,29 @@ import java.util.ArrayList;
 public class MarketScreen implements Screen {
 
     private Game aGame;
-    private GameButton nextButton, previousButton;
+    private GameButton nextButton, previousButton, homeButton, buyBottom, useBottom;
+    private Label moneyLabel, skinLabel, skinPrice;
     private Image skinImage, skinImageRotation;
     private Stage stage;
+    private GamePreferences preferences;
     private ArrayList<Skin> skins = new ArrayList<Skin>();
 
     private int position = 0;
 
     public MarketScreen(Game aGame) {
         this.aGame = aGame;
+        preferences = new GamePreferences();
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
         initSkins();
 
         setUpBackground();
+        setUpHomeButton();
         setUpSkinImages();
         setUpNextButton();
         setUpPreviousButton();
-        setUpMoney();
+        setUpLabels();
     }
 
     public void initSkins() {
@@ -95,7 +104,7 @@ public class MarketScreen implements Screen {
         nextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(position == Constants.SKIN_COUNT -1){
+                if (position == Constants.SKIN_COUNT - 1) {
                     position = 0;
                 } else {
                     position++;
@@ -114,8 +123,8 @@ public class MarketScreen implements Screen {
         previousButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (position == 0){
-                    position = Constants.SKIN_COUNT -1;
+                if (position == 0) {
+                    position = Constants.SKIN_COUNT - 1;
                 } else {
                     position--;
                 }
@@ -125,13 +134,36 @@ public class MarketScreen implements Screen {
         stage.addActor(previousButton);
     }
 
-    public void changeShownSkin(){
+    public void setUpHomeButton() {
+        homeButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, "home", false);
+        homeButton.setPosition(1, Constants.HEIGHT - homeButton.getWidth() - 1);
+        homeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                aGame.setScreen(new MenuScreen(aGame));
+            }
+        });
+        stage.addActor(homeButton);
+    }
+
+    public void changeShownSkin() {
         skinImage.setDrawable(new TextureRegionDrawable(skins.get(position).getTextureRegion()));
         skinImageRotation.setDrawable(skinImage.getDrawable());
     }
 
-    public void setUpMoney() {
-
+    public void setUpLabels() {
+        Image imageCoin = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
+        imageCoin.setSize(3f, 3f);
+        imageCoin.setPosition(Constants.WIDTH - imageCoin.getWidth() -1, Constants.HEIGHT - imageCoin.getHeight() - 1);
+        BitmapFont bitmapFont = new BitmapFont();
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = bitmapFont;
+        labelStyle.fontColor = new Color(0xff8a00ff);
+        moneyLabel = new Label("" + preferences.getUserMoney(), labelStyle);
+        moneyLabel.setPosition(imageCoin.getX() - moneyLabel.getWidth(), Constants.HEIGHT - imageCoin.getHeight() - 10);
+        moneyLabel.setFontScale(0.18f);
+        stage.addActor(moneyLabel);
+        stage.addActor(imageCoin);
     }
 
     @Override
@@ -170,6 +202,5 @@ public class MarketScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }

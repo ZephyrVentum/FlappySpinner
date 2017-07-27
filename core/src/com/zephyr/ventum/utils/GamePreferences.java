@@ -37,6 +37,14 @@ public class GamePreferences {
         return preferences.getString("current_skin", Constants.SPINNER_STANDARD_SKIN);
     }
 
+    public void setUserMoney(int money){
+        preferences.putInteger("money", money);
+    }
+
+    public int getUserMoney(){
+        return preferences.getInteger("money", 0);
+    }
+
     public void setSkinBought(String skinName) {
         preferences.putBoolean(skinName, true);
     }

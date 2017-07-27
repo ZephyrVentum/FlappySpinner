@@ -23,7 +23,7 @@ public class Constants {
 
     public static final float LOGO_HEIGHT = 11.45f;
     public static final float ONPAUSE_HEIGHT = 11.2f;
-    public static final float ONFINISH_HEIGHT = 11.2f;
+    public static final float ONFINISH_HEIGHT = 5.85f;
     public static final float ONRESUME_HEIGHT = 3.075f;
     public static final float ONRESUME_WIDTH = 14f;
 
@@ -70,6 +70,8 @@ public class Constants {
 
     public static final String BOTTOM_TUBE_NAME = "bottomtube";
     public static final String TOP_TUBE_NAME = "toptube";
+
+    public static final String COIN_NAME = "coin";
 
     public static final String GAME_OVER_NAME = "gameover";
 

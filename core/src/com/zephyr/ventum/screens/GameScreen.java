@@ -305,6 +305,7 @@ public class GameScreen implements Screen, ContactListener {
                 } else {
                     scoreLabel.setText("Score" + SCORE + '\n' + "Best: " + preferences.getMaxScore());
                 }
+                preferences.setUserMoney(preferences.getUserMoney() + SCORE);
                 break;
         }
     }
