@@ -1,221 +1,228 @@
 sprites.png
-size: 126, 1963
+size: 237, 1066
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 army_skin
   rotate: false
-  xy: 0, 704
+  xy: 70, 186
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 bottomtube
   rotate: false
-  xy: 52, 0
+  xy: 0, 746
   size: 52, 320
   orig: 52, 320
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 104, 746
+  size: 133, 148
+  orig: 133, 148
+  offset: 0, 0
+  index: -1
 fire_skin
   rotate: false
-  xy: 0, 844
+  xy: 140, 256
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 golden_skin
   rotate: false
-  xy: 0, 914
+  xy: 0, 256
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 home
   rotate: false
-  xy: 0, 436
+  xy: 63, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 home_pressed
   rotate: false
-  xy: 63, 378
+  xy: 63, 0
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 hypno_skin
   rotate: false
-  xy: 0, 774
+  xy: 140, 186
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 kitty_skin
   rotate: false
-  xy: 0, 1054
+  xy: 70, 256
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 leaderboard
   rotate: false
-  xy: 0, 1732
+  xy: 0, 572
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 leaderboard_pressed
   rotate: false
-  xy: 0, 1558
+  xy: 104, 630
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 light_skin
   rotate: false
-  xy: 0, 984
+  xy: 140, 116
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 market
   rotate: false
-  xy: 0, 1790
+  xy: 0, 398
   size: 104, 57
   orig: 104, 57
   offset: 0, 0
   index: -1
 market_pressed
   rotate: false
-  xy: 0, 1500
+  xy: 104, 572
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 music
   rotate: false
-  xy: 0, 378
+  xy: 126, 0
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_off
   rotate: false
-  xy: 63, 320
+  xy: 0, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_off_pressed
   rotate: false
-  xy: 63, 436
+  xy: 126, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_pressed
   rotate: false
-  xy: 0, 320
+  xy: 0, 0
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 0, 1196
+  xy: 0, 326
   size: 77, 72
   orig: 77, 72
   offset: 0, 0
   index: -1
 pause_pressed
   rotate: false
-  xy: 0, 1124
+  xy: 77, 326
   size: 77, 72
   orig: 77, 72
   offset: 0, 0
   index: -1
 playbtn
   rotate: false
-  xy: 0, 1847
+  xy: 104, 688
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 playbtn_pressed
   rotate: false
-  xy: 0, 1905
+  xy: 104, 514
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 previous
   rotate: false
-  xy: 0, 1442
+  xy: 0, 630
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 previous_pressed
   rotate: false
-  xy: 0, 1616
+  xy: 0, 514
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 rainbow_skin
   rotate: false
-  xy: 0, 564
+  xy: 0, 116
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 settings
   rotate: false
-  xy: 0, 1326
+  xy: 104, 398
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 settings_pressed
   rotate: false
-  xy: 0, 1268
+  xy: 0, 456
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 silver_skin
   rotate: false
-  xy: 0, 634
+  xy: 0, 186
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 standart_skin
   rotate: false
-  xy: 0, 494
+  xy: 70, 116
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 toptube
   rotate: false
-  xy: 0, 0
+  xy: 52, 746
   size: 52, 320
   orig: 52, 320
   offset: 0, 0
   index: -1
 use
   rotate: false
-  xy: 0, 1384
+  xy: 104, 456
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 use_pressed
   rotate: false
-  xy: 0, 1674
+  xy: 0, 688
   size: 104, 58
   orig: 104, 58
   offset: 0, 0

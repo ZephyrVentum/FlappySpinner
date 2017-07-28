@@ -23,13 +23,19 @@ public class Constants {
 
     public static final float LOGO_HEIGHT = 11.45f;
     public static final float ONPAUSE_HEIGHT = 11.2f;
-    public static final float ONFINISH_HEIGHT = 11.2f;
+    public static final float ONFINISH_HEIGHT = 5.85f;
     public static final float ONRESUME_HEIGHT = 3.075f;
     public static final float ONRESUME_WIDTH = 14f;
 
     public static final float SPINNER_SIZE = 1f;
     public static final float SPENNER_DENSITY = 0.55f;
     public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 40f);
+
+
+    public static final int FONT_SIZE = 65;
+    public static final int LARGE_FONT_SIZE = 65;
+    public static final int MEDIUM_FONT_SIZE = 45;
+    public static final int SMALL_FONT_SIZE = 65;
 
     public static final Vector2 GRAVITY = new Vector2(0, -64);
 
@@ -70,6 +76,8 @@ public class Constants {
 
     public static final String BOTTOM_TUBE_NAME = "bottomtube";
     public static final String TOP_TUBE_NAME = "toptube";
+
+    public static final String COIN_NAME = "coin";
 
     public static final String GAME_OVER_NAME = "gameover";
 

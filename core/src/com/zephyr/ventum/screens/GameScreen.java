@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -120,12 +121,10 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpScoreLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        BitmapFont bitmapFont = new BitmapFont();
-        labelStyle.font = bitmapFont;
-        labelStyle.fontColor = new Color(0xff8a00ff);
+        labelStyle.font = AssetsManager.getMediumFont();
         scoreLabel = new Label("" + SCORE, labelStyle);
-        scoreLabel.setFontScale(0.17f);
-        scoreLabel.setHeight(4f);
+        scoreLabel.setFontScale(0.065f);
+        scoreLabel.setSize(scoreLabel.getWidth() * scoreLabel.getFontScaleX(), scoreLabel.getHeight() * scoreLabel.getFontScaleY());
         scoreLabel.setPosition(Constants.WIDTH / 2 - scoreLabel.getWidth() / 2, Constants.HEIGHT * 4 / 5 - scoreLabel.getHeight() / 2);
         scoreLabel.setAlignment(Align.center);
         stage.addActor(scoreLabel);
@@ -144,7 +143,7 @@ public class GameScreen implements Screen, ContactListener {
     public void setUpOnFinish() {
         onFinish = new Image(AssetsManager.getTextureRegion(Constants.FINISH_IMAGE_NAME));
         onFinish.setVisible(false);
-        onFinish.setSize(Constants.WIDTH, Constants.ONFINISH_HEIGHT);
+        onFinish.setSize(Constants.WIDTH - 5, Constants.ONFINISH_HEIGHT);
         onFinish.setPosition(Constants.WIDTH / 2 - onFinish.getWidth() / 2, Constants.HEIGHT / 2 - onFinish.getHeight() / 5);
         onFinish.setOrigin(onFinish.getWidth() / 2, onFinish.getHeight() / 2);
         onFinish.addAction(setOnStateImageAction(1.2f));
@@ -179,7 +178,7 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
-        playButton.setPosition(Constants.WIDTH /5  + playButton.getWidth(), Constants.HEIGHT/2 - playButton.getHeight()*1.55f);
+        playButton.setPosition(Constants.WIDTH / 5 + playButton.getWidth()+ 0.45f, Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -192,7 +191,7 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpHomeButton() {
         homeButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, "home", false);
-        homeButton.setPosition(Constants.WIDTH /3 - homeButton.getWidth()/2, Constants.HEIGHT/2 - homeButton.getHeight()*1.55f);
+        homeButton.setPosition(Constants.WIDTH / 5 +1.55f, Constants.HEIGHT / 2 - homeButton.getHeight() * 1.65f);
         homeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -299,12 +298,14 @@ public class GameScreen implements Screen, ContactListener {
                 pauseButton.setVisible(false);
                 playButton.setVisible(true);
                 homeButton.setVisible(true);
-                if (SCORE > preferences.getMaxScore()){
+                if (SCORE > preferences.getMaxScore()) {
                     preferences.setMaxScore(SCORE);
-                    scoreLabel.setText("New record! \n" + SCORE);
+                    scoreLabel.setText(" New record! \n" +"Score:"+ SCORE);
                 } else {
-                    scoreLabel.setText("Score" + SCORE + '\n' + "Best: " + preferences.getMaxScore());
+                    scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
+                scoreLabel.addAction(Actions.moveTo(scoreLabel.getX(), onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
+                preferences.setUserMoney(preferences.getUserMoney() + SCORE);
                 break;
         }
     }
