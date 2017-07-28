@@ -31,6 +31,12 @@ public class Constants {
     public static final float SPENNER_DENSITY = 0.55f;
     public static final Vector2 SPINNER_JUMP_IMPULSE = new Vector2(0, 40f);
 
+
+    public static final int FONT_SIZE = 65;
+    public static final int LARGE_FONT_SIZE = 65;
+    public static final int MEDIUM_FONT_SIZE = 45;
+    public static final int SMALL_FONT_SIZE = 65;
+
     public static final Vector2 GRAVITY = new Vector2(0, -64);
 
     public static final float RECTANGLE_BUTTON_WIDTH = 7.5f;
