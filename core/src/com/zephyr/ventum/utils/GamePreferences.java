@@ -37,12 +37,12 @@ public class GamePreferences {
         return preferences.getString("current_skin", Constants.SPINNER_STANDARD_SKIN);
     }
 
-    public void setUserMoney(int money){
+    public void setUserMoney(int money) {
         preferences.putInteger("money", money);
         preferences.flush();
     }
 
-    public int getUserMoney(){
+    public int getUserMoney() {
         return preferences.getInteger("money", 100);
     }
 
@@ -51,8 +51,26 @@ public class GamePreferences {
         preferences.flush();
     }
 
-    public boolean isSkinBougth(String skinName) {
+    public boolean isSkinBought(String skinName) {
         if (skinName.equals(Constants.SPINNER_STANDARD_SKIN)) return true;
         return preferences.getBoolean(skinName, false);
+    }
+
+    public boolean isSoundEnable() {
+        return preferences.getBoolean("sound_on", true);
+    }
+
+    public void setSoundEnabled() {
+        preferences.putBoolean("sound_on", !isSoundEnable());
+        preferences.flush();
+    }
+
+    public boolean isMusicEnable() {
+        return preferences.getBoolean("music_on", true);
+    }
+
+    public void setMusicEnabled() {
+        preferences.putBoolean("music_on", !isMusicEnable());
+        preferences.flush();
     }
 }

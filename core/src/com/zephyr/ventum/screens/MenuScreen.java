@@ -115,6 +115,7 @@ public class MenuScreen implements Screen {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new SettingsScreen(game));
             }
         });
         stage.addActor(settingsButton);

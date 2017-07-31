@@ -1,9 +1,12 @@
 package com.zephyr.ventum.actors;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.AudioManager;
 
 /**
  * Created by sashaklimenko on 7/17/17.
@@ -12,10 +15,12 @@ import com.zephyr.ventum.utils.AssetsManager;
 public class GameButton extends Button {
 
     private Rectangle rectangle;
+    private AudioManager audioManager;
+    private Skin skin;
 
     public GameButton(float WIDTH, float HEIGHT, String drawable, boolean isCheckable) {
-
-        Skin skin = new Skin();
+        audioManager = AudioManager.getInstance();
+        skin = new Skin();
         skin.addRegions(AssetsManager.getTextureAtlas());
 
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
@@ -28,9 +33,21 @@ public class GameButton extends Button {
         setSize(WIDTH, HEIGHT);
 
         rectangle = new Rectangle(getX(),getY(),getWidth(),getHeight());
+        addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                audioManager.playSound(audioManager.getButtonSound());
+            }
+        });
     }
 
-
+    public void changeDrawable(String drawable){
+        ButtonStyle buttonStyle = getStyle();
+        buttonStyle.up = skin.getDrawable(drawable);
+        buttonStyle.down = skin.getDrawable(drawable + "_pressed");
+        setStyle(buttonStyle);
+    }
 
     public Rectangle getRectangle() {
         rectangle.set(getX(),getY(),getWidth(),getHeight());

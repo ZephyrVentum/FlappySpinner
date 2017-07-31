@@ -31,6 +31,7 @@ import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.actors.Ground;
 import com.zephyr.ventum.actors.Spinner;
 import com.zephyr.ventum.actors.Tube;
+import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.AssetsManager;
 import com.zephyr.ventum.utils.GamePreferences;
@@ -49,6 +50,7 @@ public class GameScreen implements Screen, ContactListener {
     private GameButton pauseButton, playButton, homeButton;
     private Label scoreLabel;
     private GamePreferences preferences;
+    private AudioManager audioManager;
 
     private GameState state;
 
@@ -70,6 +72,7 @@ public class GameScreen implements Screen, ContactListener {
         Box2D.init();
 
         preferences = new GamePreferences();
+        audioManager = AudioManager.getInstance();
 
         aGame = game;
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
@@ -206,7 +209,7 @@ public class GameScreen implements Screen, ContactListener {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        onScreenClicked(delta);
+        onScreenClicked();
 
         stage.draw();
 
@@ -244,11 +247,13 @@ public class GameScreen implements Screen, ContactListener {
         if (tubeFirst.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeFirst.isSpinnerScoreWrited()) {
             tubeFirst.setSpinnerScoreWrited(true);
             scoreLabel.setText("" + ++SCORE);
+            audioManager.playSound(audioManager.getScoreSound());
             return;
         }
         if (tubeSecond.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeSecond.isSpinnerScoreWrited()) {
             tubeSecond.setSpinnerScoreWrited(true);
             scoreLabel.setText("" + ++SCORE);
+            audioManager.playSound(audioManager.getScoreSound());
             return;
         }
     }
@@ -262,16 +267,16 @@ public class GameScreen implements Screen, ContactListener {
         }
     }
 
-    public void onScreenClicked(float delta) {
+    public void onScreenClicked() {
         if (Gdx.input.justTouched()) {
             Vector2 screenCoords = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-            if (pauseButton.getRectangle().contains(screenCoords) || state == GameState.PAUSE) {
+            if (pauseButton.getRectangle().contains(screenCoords) || state == GameState.PAUSE || state == GameState.FINISH) {
                 return;
             }
             if (state == GameState.RESUME) {
                 changeGameState(GameState.RUN);
             }
-            spinner.jump(delta);
+            spinner.jump();
         }
     }
 
@@ -294,6 +299,7 @@ public class GameScreen implements Screen, ContactListener {
                 onResume.setVisible(false);
                 break;
             case FINISH:
+                audioManager.playSound(audioManager.getGameoverSound());
                 onFinish.setVisible(true);
                 pauseButton.setVisible(false);
                 playButton.setVisible(true);
@@ -317,7 +323,7 @@ public class GameScreen implements Screen, ContactListener {
 
     @Override
     public void pause() {
-
+        changeGameState(GameState.PAUSE);
     }
 
     @Override
@@ -337,12 +343,14 @@ public class GameScreen implements Screen, ContactListener {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("CONTACT");
+        if (state != GameState.PAUSE && state != GameState.FINISH){
+            audioManager.playSound(audioManager.getHitSound());
+        }
     }
 
     @Override
