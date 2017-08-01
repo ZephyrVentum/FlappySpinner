@@ -32,7 +32,7 @@ public class MenuScreen implements Screen {
     private Image logo;
     private Background background;
 
-    private GameButton playButton, leaderbordsButton, settingsButton, marketButton;
+    private GameButton playButton, leaderbordsButton, settingsButton, marketButton, achievementButton, shareButton;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -52,7 +52,7 @@ public class MenuScreen implements Screen {
     public void setUpLogo() {
         logo = new Image(AssetsManager.getTextureRegion(Constants.LOGO_IMAGE_NAME));
         logo.setSize(Constants.WIDTH, Constants.LOGO_HEIGHT);
-        logo.setPosition(0, Constants.HEIGHT * 2 / 3 - logo.getHeight() / 3);
+        logo.setPosition(0, Constants.HEIGHT * 2 / 3 - logo.getHeight() / 4);
         stage.addActor(logo);
     }
 
@@ -65,13 +65,15 @@ public class MenuScreen implements Screen {
         setUpPlayButton();
         setUpLeaderbordsButton();
         setUpSettingsButton();
+        setUpShareButton();
+        setUpAchievementButton();
         setUpMarketButton();
     }
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
         playButton.setPosition(Constants.WIDTH / 4 - playButton.getWidth() * 2 / 5,
-                Constants.HEIGHT / 2 - playButton.getHeight() * 2.5f);
+                Constants.HEIGHT / 2 - playButton.getHeight() * 2.5f -2);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -91,7 +93,7 @@ public class MenuScreen implements Screen {
     public void setUpMarketButton() {
         marketButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "market", false);
         marketButton.setPosition(Constants.WIDTH * 3 / 4 - marketButton.getWidth() * 3 / 5,
-                Constants.HEIGHT / 2 - marketButton.getHeight() * 2.5f);
+                Constants.HEIGHT / 2 - marketButton.getHeight() * 2.5f - 2);
         marketButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -110,8 +112,8 @@ public class MenuScreen implements Screen {
 
 
     public void setUpSettingsButton() {
-        settingsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "settings", false);
-        settingsButton.setPosition(Constants.WIDTH / 4 - settingsButton.getWidth() * 2 / 5, Constants.HEIGHT / 4 - settingsButton.getHeight()*1.35f);
+        settingsButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, "settings", false);
+        settingsButton.setPosition(1, Constants.HEIGHT / 2);
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -121,10 +123,33 @@ public class MenuScreen implements Screen {
         stage.addActor(settingsButton);
     }
 
+    public void setUpShareButton(){
+        shareButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, "share", false);
+        shareButton.setPosition(1, Constants.HEIGHT / 2 - shareButton.getHeight() - 1);
+        shareButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            }
+        });
+        stage.addActor(shareButton);
+    }
+
+    public void setUpAchievementButton(){
+        achievementButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "achievement", false);
+        achievementButton.setPosition(Constants.WIDTH * 3 / 4 - achievementButton.getWidth() * 3 / 5,
+                Constants.HEIGHT / 4 - achievementButton.getHeight()*1.35f - 2);
+        achievementButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+            }
+        });
+        stage.addActor(achievementButton);
+    }
+
     public void setUpLeaderbordsButton() {
         leaderbordsButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "leaderboard", false);
-        leaderbordsButton.setPosition(Constants.WIDTH * 3 / 4 - leaderbordsButton.getWidth() * 3 / 5,
-                Constants.HEIGHT / 4 - leaderbordsButton.getHeight()*1.35f);
+        leaderbordsButton.setPosition(Constants.WIDTH / 4 - leaderbordsButton.getWidth() * 2 / 5,
+                Constants.HEIGHT / 4 - leaderbordsButton.getHeight()*1.35f - 2);
         leaderbordsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

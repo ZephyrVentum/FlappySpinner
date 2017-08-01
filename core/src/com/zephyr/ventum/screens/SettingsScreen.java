@@ -27,7 +27,7 @@ public class SettingsScreen implements Screen {
     private Stage stage;
     private GamePreferences preferences;
     private AudioManager audioManager;
-    private GameButton homeButton, musicButton, soundButton;
+    private GameButton homeButton, musicButton, soundButton, githubButton;
     private Label developerLabel, designerLabel, testerLabel, poweredByLabel;
     private Label whoDeveloperLabel, whoDesignerLabel, whoTester, whoPowered;
 
@@ -46,6 +46,7 @@ public class SettingsScreen implements Screen {
         setUpHomeButton();
         setUpMusicButton();
         setUpSoundButton();
+        setUpGitHubButton();
     }
 
     public void setUpBackground() {
@@ -65,10 +66,22 @@ public class SettingsScreen implements Screen {
         stage.addActor(homeButton);
     }
 
+    public void setUpGitHubButton() {
+        githubButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "github", false);
+        githubButton.setPosition(Constants.WIDTH - githubButton.getWidth() - 1, 1);
+        githubButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.net.openURI("https://github.com/ZephyrVentum");
+            }
+        });
+        stage.addActor(githubButton);
+    }
+
     public void setUpSoundButton() {
         boolean isEnable = preferences.isSoundEnable();
         String drawable = (isEnable) ? "sound" : "sound_off";
-        soundButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, drawable, false);
+        soundButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, drawable, false);
         soundButton.setPosition(1, 1);
         soundButton.addListener(new ChangeListener() {
             @Override
@@ -84,7 +97,7 @@ public class SettingsScreen implements Screen {
     public void setUpMusicButton() {
         boolean isEnable = preferences.isMusicEnable();
         String drawable = (isEnable) ? "music" : "music_off";
-        musicButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, drawable, false);
+        musicButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, drawable, false);
         musicButton.setPosition(1 + musicButton.getWidth() + 1, 1);
         musicButton.addListener(new ChangeListener() {
             @Override
@@ -92,7 +105,7 @@ public class SettingsScreen implements Screen {
                 preferences.setMusicEnabled();
                 String drawable = (preferences.isMusicEnable()) ? "music" : "music_off";
                 musicButton.changeDrawable(drawable);
-                if(preferences.isMusicEnable()){
+                if (preferences.isMusicEnable()) {
                     audioManager.playMusic();
                 } else {
                     audioManager.pauseMusic();
@@ -121,7 +134,7 @@ public class SettingsScreen implements Screen {
         stage.draw();
     }
 
-    public void setUpDeveloperLabel(){
+    public void setUpDeveloperLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getLargeFont();
         developerLabel = new Label("Developer", labelStyle);
@@ -132,61 +145,60 @@ public class SettingsScreen implements Screen {
         stage.addActor(developerLabel);
     }
 
-    public void setUpWhoDeveloperLabel(){
+    public void setUpWhoDeveloperLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getMediumFont();
         whoDeveloperLabel = new Label("Alexander Klimenko", labelStyle);
         whoDeveloperLabel.setFontScale(0.065f);
         whoDeveloperLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoDeveloperLabel.getFontScaleY() + 1);
         whoDeveloperLabel.setAlignment(Align.center);
-        whoDeveloperLabel.setPosition(0, developerLabel.getY() - whoDeveloperLabel.getHeight()*2/3);
+        whoDeveloperLabel.setPosition(0, developerLabel.getY() - whoDeveloperLabel.getHeight() * 2 / 3);
         stage.addActor(whoDeveloperLabel);
     }
 
-    public void setUpDesignerLabel(){
+    public void setUpDesignerLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getLargeFont();
         designerLabel = new Label("Designer", labelStyle);
         designerLabel.setFontScale(0.065f);
         designerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * designerLabel.getFontScaleY() + 1);
         designerLabel.setAlignment(Align.center);
-        designerLabel.setPosition(0, whoDeveloperLabel.getY() - designerLabel.getHeight()*2/3);
+        designerLabel.setPosition(0, whoDeveloperLabel.getY() - designerLabel.getHeight() * 2 / 3);
         stage.addActor(designerLabel);
     }
 
-    public void setUpWhoDesignerLabel(){
+    public void setUpWhoDesignerLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getMediumFont();
         whoDesignerLabel = new Label("Elena Kiselova", labelStyle);
         whoDesignerLabel.setFontScale(0.065f);
         whoDesignerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoDesignerLabel.getFontScaleY() + 1);
         whoDesignerLabel.setAlignment(Align.center);
-        whoDesignerLabel.setPosition(0, designerLabel.getY() - whoDesignerLabel.getHeight()*2/3);
+        whoDesignerLabel.setPosition(0, designerLabel.getY() - whoDesignerLabel.getHeight() * 2 / 3);
         stage.addActor(whoDesignerLabel);
     }
 
-    public void setUpTesterLabel(){
+    public void setUpTesterLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getLargeFont();
         testerLabel = new Label("Tester", labelStyle);
         testerLabel.setFontScale(0.065f);
         testerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * testerLabel.getFontScaleY() + 1);
         testerLabel.setAlignment(Align.center);
-        testerLabel.setPosition(0, whoDesignerLabel.getY() - testerLabel.getHeight()*2/3);
+        testerLabel.setPosition(0, whoDesignerLabel.getY() - testerLabel.getHeight() * 2 / 3);
         stage.addActor(testerLabel);
     }
 
-    public void setUpWhoTesterLabel(){
+    public void setUpWhoTesterLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getMediumFont();
         whoTester = new Label("Alexey Koshmanov", labelStyle);
         whoTester.setFontScale(0.065f);
         whoTester.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoTester.getFontScaleY() + 1);
         whoTester.setAlignment(Align.center);
-        whoTester.setPosition(0, testerLabel.getY() - whoTester.getHeight()*2/3);
+        whoTester.setPosition(0, testerLabel.getY() - whoTester.getHeight() * 2 / 3);
         stage.addActor(whoTester);
     }
-
 
 
     @Override

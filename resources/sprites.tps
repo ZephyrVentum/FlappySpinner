@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>/Users/sashaklimenko/Desktop/sprites.tps</string>
+        <string>/Users/sashaklimenko/Documents/Development/FlappySpinner/resources/sprites.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,15 +199,15 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/army_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/fire_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/golden_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/hypno_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/kitty_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/light_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/rainbow_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/silver_skin.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/standart_skin.png</key>
+            <key type="filename">army_skin.png</key>
+            <key type="filename">fire_skin.png</key>
+            <key type="filename">golden_skin.png</key>
+            <key type="filename">hypno_skin.png</key>
+            <key type="filename">kitty_skin.png</key>
+            <key type="filename">light_skin.png</key>
+            <key type="filename">rainbow_skin.png</key>
+            <key type="filename">silver_skin.png</key>
+            <key type="filename">standart_skin.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -220,8 +220,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/bottomtube.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/toptube.png</key>
+            <key type="filename">bottomtube.png</key>
+            <key type="filename">toptube.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -234,7 +234,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/coin.png</key>
+            <key type="filename">coin.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -247,41 +247,20 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/coin_income.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>46,42,93,84</rect>
-                <key>scale9Paddings</key>
-                <rect>46,42,93,84</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/coin_upgrade.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>34,37,69,74</rect>
-                <key>scale9Paddings</key>
-                <rect>34,37,69,74</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/home.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/home_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/music.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/music_off_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/music_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/sound.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/sound_off.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/sound_off_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/sound_pressed.png</key>
+            <key type="filename">home.png</key>
+            <key type="filename">home_pressed.png</key>
+            <key type="filename">music.png</key>
+            <key type="filename">music_off.png</key>
+            <key type="filename">music_off_pressed.png</key>
+            <key type="filename">music_pressed.png</key>
+            <key type="filename">settings.png</key>
+            <key type="filename">settings_pressed.png</key>
+            <key type="filename">share.png</key>
+            <key type="filename">share_pressed.png</key>
+            <key type="filename">sound.png</key>
+            <key type="filename">sound_off.png</key>
+            <key type="filename">sound_off_pressed.png</key>
+            <key type="filename">sound_pressed.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -294,16 +273,16 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/leaderboard.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/leaderboard_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/market_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/playbtn.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/previous.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/previous_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/settings.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/settings_pressed.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/use.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/use_pressed.png</key>
+            <key type="filename">leaderboard.png</key>
+            <key type="filename">leaderboard_pressed.png</key>
+            <key type="filename">market.png</key>
+            <key type="filename">market_pressed.png</key>
+            <key type="filename">playbtn.png</key>
+            <key type="filename">playbtn_pressed.png</key>
+            <key type="filename">previous.png</key>
+            <key type="filename">previous_pressed.png</key>
+            <key type="filename">use.png</key>
+            <key type="filename">use_pressed.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -316,35 +295,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/market.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>26,14,52,29</rect>
-                <key>scale9Paddings</key>
-                <rect>26,14,52,29</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/music_off.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/playbtn_pressed.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>0,0,0,0</rect>
-                <key>scale9Paddings</key>
-                <rect>0,0,0,0</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/pause.png</key>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/pause_pressed.png</key>
+            <key type="filename">pause.png</key>
+            <key type="filename">pause_pressed.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -354,64 +306,50 @@
                 <rect>19,18,39,36</rect>
                 <key>scale9Paddings</key>
                 <rect>19,18,39,36</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../Documents/Development/FlappySpinner/android/assets/speed_upgrade.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>45,40,91,80</rect>
-                <key>scale9Paddings</key>
-                <rect>45,40,91,80</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../Documents/Development/FlappySpinner/android/assets/bottomtube.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/leaderboard_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/playbtn_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/playbtn.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/settings.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/toptube.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/leaderboard.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/settings_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/home.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/home_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/pause.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/pause_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/music.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/music_off.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/music_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/music_off_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/market_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/market.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/army_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/fire_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/golden_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/kitty_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/light_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/previous_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/previous.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/rainbow_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/silver_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/standart_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/hypno_skin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/use_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/use.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/coin.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/sound_off_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/sound_off.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/sound_pressed.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/sound.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/coin_income.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/coin_upgrade.png</filename>
-            <filename>../Documents/Development/FlappySpinner/android/assets/speed_upgrade.png</filename>
+            <filename>army_skin.png</filename>
+            <filename>bottomtube.png</filename>
+            <filename>coin.png</filename>
+            <filename>fire_skin.png</filename>
+            <filename>golden_skin.png</filename>
+            <filename>home_pressed.png</filename>
+            <filename>home.png</filename>
+            <filename>hypno_skin.png</filename>
+            <filename>kitty_skin.png</filename>
+            <filename>leaderboard_pressed.png</filename>
+            <filename>leaderboard.png</filename>
+            <filename>light_skin.png</filename>
+            <filename>market_pressed.png</filename>
+            <filename>market.png</filename>
+            <filename>music_off_pressed.png</filename>
+            <filename>music_off.png</filename>
+            <filename>music_pressed.png</filename>
+            <filename>music.png</filename>
+            <filename>pause_pressed.png</filename>
+            <filename>pause.png</filename>
+            <filename>playbtn_pressed.png</filename>
+            <filename>playbtn.png</filename>
+            <filename>previous_pressed.png</filename>
+            <filename>previous.png</filename>
+            <filename>rainbow_skin.png</filename>
+            <filename>settings_pressed.png</filename>
+            <filename>settings.png</filename>
+            <filename>share_pressed.png</filename>
+            <filename>share.png</filename>
+            <filename>silver_skin.png</filename>
+            <filename>sound_off_pressed.png</filename>
+            <filename>sound_off.png</filename>
+            <filename>sound_pressed.png</filename>
+            <filename>sound.png</filename>
+            <filename>standart_skin.png</filename>
+            <filename>toptube.png</filename>
+            <filename>use_pressed.png</filename>
+            <filename>use.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
