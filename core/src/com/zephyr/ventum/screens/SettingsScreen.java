@@ -8,9 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
+import com.zephyr.ventum.utils.AssetsManager;
 import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.GamePreferences;
@@ -27,7 +29,7 @@ public class SettingsScreen implements Screen {
     private AudioManager audioManager;
     private GameButton homeButton, musicButton, soundButton;
     private Label developerLabel, designerLabel, testerLabel, poweredByLabel;
-    private Label whoDeveloperLavel, whoDesignerLabel, whoTaster, whoPowered;
+    private Label whoDeveloperLabel, whoDesignerLabel, whoTester, whoPowered;
 
     public SettingsScreen(Game game) {
         this.aGame = game;
@@ -102,7 +104,12 @@ public class SettingsScreen implements Screen {
 
 
     public void setUpLabels() {
-
+        setUpDeveloperLabel();
+        setUpWhoDeveloperLabel();
+        setUpDesignerLabel();
+        setUpWhoDesignerLabel();
+        setUpTesterLabel();
+        setUpWhoTesterLabel();
     }
 
     @Override
@@ -113,6 +120,74 @@ public class SettingsScreen implements Screen {
         stage.act();
         stage.draw();
     }
+
+    public void setUpDeveloperLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getLargeFont();
+        developerLabel = new Label("Developer", labelStyle);
+        developerLabel.setFontScale(0.065f);
+        developerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * developerLabel.getFontScaleY() + 1);
+        developerLabel.setAlignment(Align.center);
+        developerLabel.setPosition(0, Constants.HEIGHT - developerLabel.getHeight() - Constants.SQUARE_BUTTON_SIZE);
+        stage.addActor(developerLabel);
+    }
+
+    public void setUpWhoDeveloperLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        whoDeveloperLabel = new Label("Alexander Klimenko", labelStyle);
+        whoDeveloperLabel.setFontScale(0.065f);
+        whoDeveloperLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoDeveloperLabel.getFontScaleY() + 1);
+        whoDeveloperLabel.setAlignment(Align.center);
+        whoDeveloperLabel.setPosition(0, developerLabel.getY() - whoDeveloperLabel.getHeight()*2/3);
+        stage.addActor(whoDeveloperLabel);
+    }
+
+    public void setUpDesignerLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getLargeFont();
+        designerLabel = new Label("Designer", labelStyle);
+        designerLabel.setFontScale(0.065f);
+        designerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * designerLabel.getFontScaleY() + 1);
+        designerLabel.setAlignment(Align.center);
+        designerLabel.setPosition(0, whoDeveloperLabel.getY() - designerLabel.getHeight()*2/3);
+        stage.addActor(designerLabel);
+    }
+
+    public void setUpWhoDesignerLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        whoDesignerLabel = new Label("Elena Kiselova", labelStyle);
+        whoDesignerLabel.setFontScale(0.065f);
+        whoDesignerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoDesignerLabel.getFontScaleY() + 1);
+        whoDesignerLabel.setAlignment(Align.center);
+        whoDesignerLabel.setPosition(0, designerLabel.getY() - whoDesignerLabel.getHeight()*2/3);
+        stage.addActor(whoDesignerLabel);
+    }
+
+    public void setUpTesterLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getLargeFont();
+        testerLabel = new Label("Tester", labelStyle);
+        testerLabel.setFontScale(0.065f);
+        testerLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * testerLabel.getFontScaleY() + 1);
+        testerLabel.setAlignment(Align.center);
+        testerLabel.setPosition(0, whoDesignerLabel.getY() - testerLabel.getHeight()*2/3);
+        stage.addActor(testerLabel);
+    }
+
+    public void setUpWhoTesterLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        whoTester = new Label("Alexey Koshmanov", labelStyle);
+        whoTester.setFontScale(0.065f);
+        whoTester.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * whoTester.getFontScaleY() + 1);
+        whoTester.setAlignment(Align.center);
+        whoTester.setPosition(0, testerLabel.getY() - whoTester.getHeight()*2/3);
+        stage.addActor(whoTester);
+    }
+
+
 
     @Override
     public void resize(int width, int height) {

@@ -323,7 +323,9 @@ public class GameScreen implements Screen, ContactListener {
 
     @Override
     public void pause() {
-        changeGameState(GameState.PAUSE);
+        if (state != GameState.FINISH) {
+            pauseButton.setChecked(true);
+        }
     }
 
     @Override
