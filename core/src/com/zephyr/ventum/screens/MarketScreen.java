@@ -3,10 +3,7 @@ package com.zephyr.ventum.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -25,6 +22,7 @@ import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.models.Skin;
 import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.GamePreferences;
 
@@ -41,13 +39,17 @@ public class MarketScreen implements Screen {
     private Label moneyLabel, skinLabel, priceLabel;
     private Image skinImage, skinImageRotation, imageCoinPrice;
     private Stage stage;
+
     private GamePreferences preferences;
+    private AudioManager audioManager;
+
     private ArrayList<Skin> skins = new ArrayList<Skin>();
 
     private int position = 0;
 
     public MarketScreen(Game aGame) {
         this.aGame = aGame;
+        audioManager = AudioManager.getInstance();
         preferences = new GamePreferences();
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         Gdx.input.setInputProcessor(stage);
@@ -167,6 +169,7 @@ public class MarketScreen implements Screen {
                 if(preferences.getUserMoney() >= skins.get(position).getPrice()){
                     preferences.setUserMoney(preferences.getUserMoney() - skins.get(position).getPrice());
                     preferences.setSkinBought(skins.get(position).getName());
+                    audioManager.playSound(audioManager.getMarketSound());
                     updateShownSkin();
                 }
             }
@@ -197,7 +200,7 @@ public class MarketScreen implements Screen {
 
     public void updateShownSkin(){
         moneyLabel.setText("" + preferences.getUserMoney());
-        if(preferences.isSkinBougth(skins.get(position).getName())){
+        if(preferences.isSkinBought(skins.get(position).getName())){
             buyBottom.setVisible(false);
             imageCoinPrice.setVisible(false);
             priceLabel.setVisible(false);
@@ -300,5 +303,7 @@ public class MarketScreen implements Screen {
 
     @Override
     public void dispose() {
+        skins.clear();
+        stage.dispose();
     }
 }

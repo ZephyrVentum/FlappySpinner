@@ -5,17 +5,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.zephyr.ventum.screens.MenuScreen;
 import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.GamePreferences;
 
 public class FlappySpinner extends Game {
 
-	private Music music;
-
 	@Override
 	public void create () {
-		startMusic();
 		AssetsManager.initAssets();
 		GamePreferences.getInstance();
+		AudioManager.getInstance().init();
+
+		startMusic();
+		
 		this.setScreen(new MenuScreen(this));
 	}
 
@@ -25,18 +27,11 @@ public class FlappySpinner extends Game {
 	}
 
 	private void startMusic() {
-		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-		music.setLooping(true);
-		music.play();
+		AudioManager.getInstance().playMusic();
 	}
 
-	private void stopSound() {
-		music.stop();
-		music.dispose();
-	}
-	
 	@Override
 	public void dispose () {
-		stopSound();
+		AudioManager.getInstance().dispose();
 	}
 }

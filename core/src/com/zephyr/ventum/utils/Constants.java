@@ -79,6 +79,14 @@ public class Constants {
 
     public static final String COIN_NAME = "coin";
 
+    public static final String HIT_SOUND_PATH = "contact.wav";
+    public static final String SCORE_SOUND_PATH = "coin.wav";
+    public static final String BUTTON_SOUND_PATH = "click.wav";
+    public static final String MARKET_SOUND_PATH = "market.wav";
+    public static final String GAMEOVER_SOUND_PATH = "death.wav";
+    public static final String JUMP_SOUND_PATH = "jump.ogg";
+    public static final String MUSIC_PATH = "music.mp3";
+
     public static final String GAME_OVER_NAME = "gameover";
 
     public static final String BUTTON_HOME_NAME = "home";
@@ -102,8 +110,7 @@ public class Constants {
     public static final String BUTTON_SETTINGS_NAME = "settings";
     public static final String BUTTON_SETTINGS_PRESSED_NAME = "settings_pressed";
 
-    public static final String MUSIC_PATH = "music.mp3";
-    public static final String SOUND_PATH = "sfx_wing.ogg";
+
 
     public static final Vector2 SPINNER_POSITIONS = new Vector2(
             WIDTH / 2 - AssetsManager.getTextureRegion(SPINNER_STANDARD_SKIN).getRegionWidth() * 0.05f / 2,
