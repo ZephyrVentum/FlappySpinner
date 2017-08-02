@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.zephyr.ventum.FlappySpinner;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
 import com.zephyr.ventum.utils.Constants;
@@ -129,6 +130,7 @@ public class MenuScreen implements Screen {
         shareButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                FlappySpinner.gameManager.share();
             }
         });
         stage.addActor(shareButton);
