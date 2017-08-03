@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.zephyr.ventum.FlappySpinner;
 import com.zephyr.ventum.enums.GameState;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
@@ -78,6 +79,7 @@ public class GameScreen implements Screen, ContactListener {
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
         world = WorldUtils.createWorld();
         world.setContactListener(this);
+
         Gdx.input.setInputProcessor(stage);
 
         state = GameState.RESUME;
@@ -181,7 +183,7 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
-        playButton.setPosition(Constants.WIDTH / 5 + playButton.getWidth()+ 0.45f, Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
+        playButton.setPosition(Constants.WIDTH / 5 + playButton.getWidth() + 0.45f, Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -193,8 +195,8 @@ public class GameScreen implements Screen, ContactListener {
     }
 
     public void setUpHomeButton() {
-        homeButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, "home", false);
-        homeButton.setPosition(Constants.WIDTH / 5 +1.55f, Constants.HEIGHT / 2 - homeButton.getHeight() * 1.65f);
+        homeButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, "home", false);
+        homeButton.setPosition(1, Constants.HEIGHT - homeButton.getHeight() - 1);
         homeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -306,7 +308,7 @@ public class GameScreen implements Screen, ContactListener {
                 homeButton.setVisible(true);
                 if (SCORE > preferences.getMaxScore()) {
                     preferences.setMaxScore(SCORE);
-                    scoreLabel.setText(" New record! \n" +"Score:"+ SCORE);
+                    scoreLabel.setText(" New record! \n" + "Score:" + SCORE);
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
@@ -350,7 +352,7 @@ public class GameScreen implements Screen, ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        if (state != GameState.PAUSE && state != GameState.FINISH){
+        if (state != GameState.PAUSE && state != GameState.FINISH) {
             audioManager.playSound(audioManager.getHitSound());
         }
     }

@@ -16,12 +16,12 @@ public class GameManager implements GameEventListener{
 
     @Override
     public void displayAd() {
-
+        gameEventListener.displayAd();
     }
 
     @Override
     public void hideAd() {
-
+        gameEventListener.hideAd();
     }
 
     @Override

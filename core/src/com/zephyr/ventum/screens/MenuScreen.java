@@ -18,8 +18,10 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.zephyr.ventum.FlappySpinner;
 import com.zephyr.ventum.actors.Background;
 import com.zephyr.ventum.actors.GameButton;
+import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.AssetsManager;
+import com.zephyr.ventum.utils.GamePreferences;
 
 /**
  * Created by sashaklimenko on 7/6/17.
@@ -33,7 +35,10 @@ public class MenuScreen implements Screen {
     private Image logo;
     private Background background;
 
-    private GameButton playButton, leaderbordsButton, settingsButton, marketButton, achievementButton, shareButton;
+    private GamePreferences preferences;
+    private AudioManager audioManager;
+
+    private GameButton playButton, leaderbordsButton, settingsButton, marketButton, achievementButton, shareButton, soundButton, musicButton;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -44,7 +49,12 @@ public class MenuScreen implements Screen {
         world = new World(new Vector2(0, 0), false);
         stage = new Stage(new StretchViewport(Constants.WIDTH, Constants.HEIGHT));
 
+        preferences = new GamePreferences();
+        audioManager = AudioManager.getInstance();
         Gdx.input.setInputProcessor(stage);
+
+        FlappySpinner.gameManager.displayAd();
+
         setUpBackground();
         setUpButtons();
         setUpLogo();
@@ -69,6 +79,8 @@ public class MenuScreen implements Screen {
         setUpShareButton();
         setUpAchievementButton();
         setUpMarketButton();
+        setUpMusicButton();
+        setUpSoundButton();
     }
 
     public void setUpPlayButton() {
@@ -78,6 +90,7 @@ public class MenuScreen implements Screen {
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                //FlappySpinner.gameManager.hideAd();
                 float delay = 0.3f;
                 setUpFadeOut();
                 Timer.schedule(new Timer.Task() {
@@ -114,7 +127,7 @@ public class MenuScreen implements Screen {
 
     public void setUpSettingsButton() {
         settingsButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, "settings", false);
-        settingsButton.setPosition(1, Constants.HEIGHT / 2);
+        settingsButton.setPosition(1, Constants.HEIGHT / 2 - settingsButton.getHeight() - 1);
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -126,7 +139,7 @@ public class MenuScreen implements Screen {
 
     public void setUpShareButton(){
         shareButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, "share", false);
-        shareButton.setPosition(1, Constants.HEIGHT / 2 - shareButton.getHeight() - 1);
+        shareButton.setPosition(1, Constants.HEIGHT / 2);
         shareButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -134,6 +147,43 @@ public class MenuScreen implements Screen {
             }
         });
         stage.addActor(shareButton);
+    }
+
+    public void setUpSoundButton() {
+        boolean isEnable = preferences.isSoundEnable();
+        String drawable = (isEnable) ? "sound" : "sound_off";
+        soundButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, drawable, false);
+        soundButton.setPosition(Constants.WIDTH - soundButton.getWidth() - 1, Constants.HEIGHT / 2 - soundButton.getHeight() - 1);
+        soundButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.setSoundEnabled();
+                String drawable = (preferences.isSoundEnable()) ? "sound" : "sound_off";
+                soundButton.changeDrawable(drawable);
+            }
+        });
+        stage.addActor(soundButton);
+    }
+
+    public void setUpMusicButton() {
+        boolean isEnable = preferences.isMusicEnable();
+        String drawable = (isEnable) ? "music" : "music_off";
+        musicButton = new GameButton(Constants.SQUARE_BUTTON_SIZE - 0.4f, Constants.SQUARE_BUTTON_SIZE - 0.4f, drawable, false);
+        musicButton.setPosition(Constants.WIDTH - musicButton.getWidth() - 1, Constants.HEIGHT / 2);
+        musicButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.setMusicEnabled();
+                String drawable = (preferences.isMusicEnable()) ? "music" : "music_off";
+                musicButton.changeDrawable(drawable);
+                if (preferences.isMusicEnable()) {
+                    audioManager.playMusic();
+                } else {
+                    audioManager.pauseMusic();
+                }
+            }
+        });
+        stage.addActor(musicButton);
     }
 
     public void setUpAchievementButton(){
