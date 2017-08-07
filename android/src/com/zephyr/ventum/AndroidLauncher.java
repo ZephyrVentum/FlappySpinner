@@ -29,9 +29,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.useAccelerometer = false;
         config.useGyroscope = false;
-        //initialize(new FlappySpinner(this), config);
 
-        // Do the stuff that initialize() would do for you
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -40,7 +38,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
@@ -56,7 +54,6 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
 
         setContentView(layout);
 
-
         startAdvertising(adView);
     }
 
@@ -64,12 +61,12 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(AD_UNIT_ID);
-        adView.setId(12345); // this is an arbitrary id, allows for relative positioning in createGameView()
+        adView.setId(1337); // this is an arbitrary id, allows for relative positioning in createGameView()
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
         adView.setLayoutParams(params);
-        adView.setBackgroundColor(Color.parseColor("#4ec0ca"));
+        adView.setBackgroundColor(Color.BLACK);
     }
 
     private void createGameView(AndroidApplicationConfiguration cfg) {
@@ -99,6 +96,18 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    @Override
     public void hideAd() {
         runOnUiThread(new Runnable() {
             @Override
@@ -107,6 +116,16 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
             }
         });
 
+    }
+
+    @Override
+    public void changeBackgroundColor(final String color) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adView.setBackgroundColor(Color.parseColor(color));//"#4ec0ca" sky, "#e9fcd9" cloud
+            }
+        });
     }
 
     @Override

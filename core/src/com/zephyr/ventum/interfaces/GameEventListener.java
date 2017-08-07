@@ -32,6 +32,11 @@ public interface GameEventListener {
     public void hideAd();
 
     /**
+     * Hides an ad
+     */
+    public void changeBackgroundColor(String color);
+
+    /**
      * Displays the scores leaderboard
      */
     public void displayLeaderboard();

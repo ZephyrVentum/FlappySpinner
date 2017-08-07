@@ -53,7 +53,7 @@ public class MenuScreen implements Screen {
         audioManager = AudioManager.getInstance();
         Gdx.input.setInputProcessor(stage);
 
-        FlappySpinner.gameManager.displayAd();
+        FlappySpinner.gameManager.changeBackgroundColor("#4ec0ca");
 
         setUpBackground();
         setUpButtons();

@@ -1,305 +1,305 @@
 sprites.png
-size: 501, 840
+size: 490, 898
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 achievement
-  rotate: false
-  xy: 312, 232
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-achievement_pressed
-  rotate: false
-  xy: 63, 174
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-army_skin
-  rotate: false
-  xy: 70, 302
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-bottomtube
-  rotate: false
-  xy: 418, 520
-  size: 52, 320
-  orig: 52, 320
-  offset: 0, 0
-  index: -1
-coin
-  rotate: false
-  xy: 224, 372
-  size: 133, 148
-  orig: 133, 148
-  offset: 0, 0
-  index: -1
-coin_income
-  rotate: false
-  xy: 181, 520
-  size: 185, 167
-  orig: 185, 167
-  offset: 0, 0
-  index: -1
-coin_upgrade
-  rotate: false
-  xy: 357, 372
-  size: 137, 148
-  orig: 137, 148
-  offset: 0, 0
-  index: -1
-fire_skin
-  rotate: false
-  xy: 210, 302
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-github
-  rotate: false
-  xy: 397, 174
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-github_pressed
-  rotate: false
-  xy: 230, 174
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-golden_skin
-  rotate: false
-  xy: 350, 302
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-home
-  rotate: false
-  xy: 334, 174
-  size: 63, 58
-  orig: 63, 58
-  offset: 0, 0
-  index: -1
-home_pressed
-  rotate: false
-  xy: 167, 174
-  size: 63, 58
-  orig: 63, 58
-  offset: 0, 0
-  index: -1
-hypno_skin
-  rotate: false
-  xy: 280, 302
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-kitty_skin
-  rotate: false
-  xy: 420, 302
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-leaderboard
-  rotate: false
-  xy: 208, 232
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-leaderboard_pressed
-  rotate: false
-  xy: 0, 232
-  size: 104, 58
-  orig: 104, 58
-  offset: 0, 0
-  index: -1
-light_skin
-  rotate: false
-  xy: 416, 232
-  size: 70, 70
-  orig: 70, 70
-  offset: 0, 0
-  index: -1
-market
   rotate: false
   xy: 104, 232
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
+achievement_pressed
+  rotate: false
+  xy: 0, 232
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+army_skin
+  rotate: false
+  xy: 0, 360
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+bottomtube
+  rotate: false
+  xy: 366, 578
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 291, 430
+  size: 133, 148
+  orig: 133, 148
+  offset: 0, 0
+  index: -1
+coin_income
+  rotate: false
+  xy: 181, 578
+  size: 185, 167
+  orig: 185, 167
+  offset: 0, 0
+  index: -1
+coin_upgrade
+  rotate: false
+  xy: 154, 430
+  size: 137, 148
+  orig: 137, 148
+  offset: 0, 0
+  index: -1
+fire_skin
+  rotate: false
+  xy: 280, 360
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+github
+  rotate: false
+  xy: 312, 232
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+github_pressed
+  rotate: false
+  xy: 378, 174
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+golden_skin
+  rotate: false
+  xy: 420, 360
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+home
+  rotate: false
+  xy: 252, 174
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+home_pressed
+  rotate: false
+  xy: 315, 174
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+hypno_skin
+  rotate: false
+  xy: 210, 360
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+kitty_skin
+  rotate: false
+  xy: 140, 360
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+leaderboard
+  rotate: false
+  xy: 0, 290
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+leaderboard_pressed
+  rotate: false
+  xy: 104, 290
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+light_skin
+  rotate: false
+  xy: 312, 290
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+market
+  rotate: false
+  xy: 208, 290
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
 market_pressed
   rotate: false
-  xy: 208, 0
+  xy: 208, 232
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 music
   rotate: false
-  xy: 0, 58
+  xy: 0, 0
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_off
   rotate: false
-  xy: 167, 58
+  xy: 104, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_off_pressed
   rotate: false
-  xy: 0, 174
+  xy: 271, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 music_pressed
   rotate: false
-  xy: 416, 0
+  xy: 189, 174
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 147, 372
+  xy: 0, 430
   size: 77, 72
   orig: 77, 72
   offset: 0, 0
   index: -1
 pause_pressed
   rotate: false
-  xy: 70, 372
+  xy: 77, 430
   size: 77, 72
   orig: 77, 72
   offset: 0, 0
   index: -1
 playbtn
   rotate: false
-  xy: 312, 0
+  xy: 0, 58
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 playbtn_pressed
   rotate: false
-  xy: 104, 0
+  xy: 334, 0
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 previous
   rotate: false
-  xy: 0, 0
+  xy: 63, 0
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 previous_pressed
   rotate: false
-  xy: 230, 58
+  xy: 230, 0
   size: 104, 58
   orig: 104, 58
   offset: 0, 0
   index: -1
 rainbow_skin
   rotate: false
-  xy: 0, 372
+  xy: 350, 360
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 settings
   rotate: false
-  xy: 334, 58
+  xy: 167, 0
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 settings_pressed
   rotate: false
-  xy: 293, 116
+  xy: 334, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 419, 116
+  xy: 397, 58
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 share_pressed
   rotate: false
-  xy: 356, 116
+  xy: 0, 174
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 silver_skin
   rotate: false
-  xy: 0, 302
+  xy: 382, 290
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 sound
   rotate: false
-  xy: 230, 116
+  xy: 126, 174
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 sound_off
   rotate: false
-  xy: 167, 116
+  xy: 63, 174
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 sound_off_pressed
   rotate: false
-  xy: 397, 58
+  xy: 375, 116
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 sound_pressed
   rotate: false
-  xy: 104, 116
+  xy: 312, 116
   size: 63, 58
   orig: 63, 58
   offset: 0, 0
   index: -1
 speed_upgrade
   rotate: false
-  xy: 0, 520
+  xy: 0, 578
   size: 181, 159
   orig: 181, 159
   offset: 0, 0
   index: -1
 standart_skin
   rotate: false
-  xy: 140, 302
+  xy: 70, 360
   size: 70, 70
   orig: 70, 70
   offset: 0, 0
   index: -1
 toptube
   rotate: false
-  xy: 366, 520
+  xy: 418, 578
   size: 52, 320
   orig: 52, 320
   offset: 0, 0
@@ -313,7 +313,21 @@ use
   index: -1
 use_pressed
   rotate: false
-  xy: 63, 58
+  xy: 208, 116
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+video
+  rotate: false
+  xy: 104, 116
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+video_pressed
+  rotate: false
+  xy: 167, 58
   size: 104, 58
   orig: 104, 58
   offset: 0, 0

@@ -25,6 +25,11 @@ public class GameManager implements GameEventListener{
     }
 
     @Override
+    public void changeBackgroundColor(String color) {
+        gameEventListener.changeBackgroundColor(color);
+    }
+
+    @Override
     public void displayLeaderboard() {
 
     }

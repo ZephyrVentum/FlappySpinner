@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../Documents/Development/FlappySpinner/android/assets/sprites.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -213,6 +213,8 @@
             <key type="filename">previous_pressed.png</key>
             <key type="filename">use.png</key>
             <key type="filename">use_pressed.png</key>
+            <key type="filename">video.png</key>
+            <key type="filename">video_pressed.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -400,6 +402,8 @@
             <filename>toptube.png</filename>
             <filename>use_pressed.png</filename>
             <filename>use.png</filename>
+            <filename>video_pressed.png</filename>
+            <filename>video.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

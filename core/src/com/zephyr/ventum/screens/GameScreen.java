@@ -47,9 +47,9 @@ public class GameScreen implements Screen, ContactListener {
     private Stage stage;
     private Game aGame;
     private World world;
-    private Image onPause, onResume, onFinish;
-    private GameButton pauseButton, playButton, homeButton;
-    private Label scoreLabel;
+    private Image onPause, onResume, onFinish, moneyImage, bonusImage;
+    private GameButton pauseButton, playButton, homeButton, videoButton;
+    private Label scoreLabel, moneyLabel, bonusLabel;
     private GamePreferences preferences;
     private AudioManager audioManager;
 
@@ -80,27 +80,28 @@ public class GameScreen implements Screen, ContactListener {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
 
+        FlappySpinner.gameManager.changeBackgroundColor("#e9fcd9");
+
         Gdx.input.setInputProcessor(stage);
 
         state = GameState.RESUME;
 
         setUpBackground();
         setUpTube();
-        setUpGround();
         setUpSpinner();
-
+        setUpGround();
 
         setUpOnPause();
         setUpOnResume();
         setUpOnFinish();
 
-        setUpPauseButton();
-        setUpPlayButton();
-        setUpHomeButton();
-
-        setUpScoreLabel();
+        setUpButtons();
+        setUpLabels();
     }
 
+    /**
+     * SETTING GAME ACTORS
+     */
     public void setUpTube() {
         tubeFirst = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 1.5f));
         tubeSecond = new Tube(WorldUtils.createTopTube(world, Constants.WIDTH * 2 + Constants.TUBE_WIDTH));
@@ -123,18 +124,9 @@ public class GameScreen implements Screen, ContactListener {
         stage.addActor(ground);
     }
 
-
-    public void setUpScoreLabel() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = AssetsManager.getMediumFont();
-        scoreLabel = new Label("" + SCORE, labelStyle);
-        scoreLabel.setFontScale(0.065f);
-        scoreLabel.setSize(scoreLabel.getWidth() * scoreLabel.getFontScaleX(), scoreLabel.getHeight() * scoreLabel.getFontScaleY());
-        scoreLabel.setPosition(Constants.WIDTH / 2 - scoreLabel.getWidth() / 2, Constants.HEIGHT * 4 / 5 - scoreLabel.getHeight() / 2);
-        scoreLabel.setAlignment(Align.center);
-        stage.addActor(scoreLabel);
-    }
-
+    /**
+     * SETTING ONSTATE IMAGES
+     */
     public void setUpOnPause() {
         onPause = new Image(AssetsManager.getTextureRegion(Constants.PAUSE_IMAGE_NAME));
         onPause.setVisible(false);
@@ -165,6 +157,53 @@ public class GameScreen implements Screen, ContactListener {
         stage.addActor(onResume);
     }
 
+    /**
+     * SETTING LABELS
+     */
+    public void setUpLabels() {
+        setUpScoreLabel();
+        setUpMoneyLabel();
+    }
+
+    public void setUpMoneyLabel(){
+        moneyImage = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
+        moneyImage.setSize(2.5f, 2.5f);
+        moneyImage.setPosition(Constants.WIDTH*2/3, onFinish.getY() + onFinish.getHeight() * 1.3f + moneyImage.getHeight()/5.5f);
+        moneyImage.setOrigin(moneyImage.getWidth()/2, moneyImage.getHeight()/2);
+        moneyImage.setVisible(false);
+        stage.addActor(moneyImage);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        moneyLabel = new Label(" " + SCORE, labelStyle);
+        moneyLabel.setFontScale(0.065f);
+        moneyLabel.setSize(moneyLabel.getWidth() * moneyLabel.getFontScaleX(),moneyLabel.getHeight() * moneyLabel.getFontScaleY());
+        moneyLabel.setPosition(moneyImage.getX() - moneyLabel.getWidth(), moneyImage.getY());
+        moneyLabel.setVisible(false);
+        stage.addActor(moneyLabel);
+    }
+
+    public void setUpScoreLabel() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        scoreLabel = new Label("" + SCORE, labelStyle);
+        scoreLabel.setFontScale(0.065f);
+        scoreLabel.setSize(scoreLabel.getWidth() * scoreLabel.getFontScaleX(), scoreLabel.getHeight() * scoreLabel.getFontScaleY());
+        scoreLabel.setPosition(Constants.WIDTH / 2 - scoreLabel.getWidth() / 2, Constants.HEIGHT * 4 / 5 - scoreLabel.getHeight() / 2);
+        scoreLabel.setAlignment(Align.center);
+        stage.addActor(scoreLabel);
+    }
+
+    /**
+     * SETTING BUTTONS
+     */
+    public void setUpButtons() {
+        setUpPauseButton();
+        setUpPlayButton();
+        setUpHomeButton();
+        setUpVideoButton();
+    }
+
     public void setUpPauseButton() {
         pauseButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, "pause", true);
         pauseButton.setPosition(1, Constants.HEIGHT - pauseButton.getHeight() - 1);
@@ -183,7 +222,7 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
-        playButton.setPosition(Constants.WIDTH / 5 + playButton.getWidth() + 0.45f, Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
+        playButton.setPosition(Constants.WIDTH * 3 / 4 - playButton.getWidth() * 3 / 5 , Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -192,6 +231,21 @@ public class GameScreen implements Screen, ContactListener {
         });
         playButton.setVisible(false);
         stage.addActor(playButton);
+    }
+
+    public void setUpVideoButton() {
+        videoButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "video", false);
+        videoButton.setPosition(Constants.WIDTH / 4 - videoButton.getWidth() * 2 / 5, Constants.HEIGHT / 2 - videoButton.getHeight() * 1.65f);
+        videoButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                SCORE+=SCORE + 1;
+                moneyLabel.setText(" " + SCORE);
+                moneyImage.setX(moneyLabel.getX() + moneyLabel.getText().length + 0.7f);
+            }
+        });
+        videoButton.setVisible(false);
+        stage.addActor(videoButton);
     }
 
     public void setUpHomeButton() {
@@ -207,6 +261,9 @@ public class GameScreen implements Screen, ContactListener {
         stage.addActor(homeButton);
     }
 
+    /**
+     * GAME CONTROLLER
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -305,14 +362,25 @@ public class GameScreen implements Screen, ContactListener {
                 onFinish.setVisible(true);
                 pauseButton.setVisible(false);
                 playButton.setVisible(true);
+                videoButton.setVisible(true);
                 homeButton.setVisible(true);
+                moneyLabel.setText(" " + SCORE);
+                moneyLabel.setVisible(true);
+                moneyImage.setVisible(true);
+                SequenceAction sequenceAction = new SequenceAction();
+                sequenceAction.addAction(Actions.rotateBy(-45,0.4f,Interpolation.linear));
+                sequenceAction.addAction(Actions.rotateBy(45,0.4f,Interpolation.linear));
+                RepeatAction infiniteLoop = new RepeatAction();
+                infiniteLoop.setCount(RepeatAction.FOREVER);
+                infiniteLoop.setAction(sequenceAction);
+                moneyImage.addAction(infiniteLoop);
                 if (SCORE > preferences.getMaxScore()) {
                     preferences.setMaxScore(SCORE);
                     scoreLabel.setText(" New record! \n" + "Score:" + SCORE);
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
-                scoreLabel.addAction(Actions.moveTo(scoreLabel.getX(), onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
+                scoreLabel.addAction(Actions.moveTo(Constants.WIDTH /3 + scoreLabel.getWidth() / 2, onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
                 preferences.setUserMoney(preferences.getUserMoney() + SCORE);
                 break;
         }
