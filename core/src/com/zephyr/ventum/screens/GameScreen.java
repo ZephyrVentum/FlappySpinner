@@ -3,9 +3,7 @@ package com.zephyr.ventum.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -47,7 +45,7 @@ public class GameScreen implements Screen, ContactListener {
     private Stage stage;
     private Game aGame;
     private World world;
-    private Image onPause, onResume, onFinish, moneyImage, bonusImage;
+    private Image onPause, onResume, onFinish, moneyImage;
     private GameButton pauseButton, playButton, homeButton, videoButton;
     private Label scoreLabel, moneyLabel, bonusLabel;
     private GamePreferences preferences;
@@ -61,6 +59,7 @@ public class GameScreen implements Screen, ContactListener {
     private int SCORE = 0;
 
     private boolean isFirstClick = true;
+    private boolean isRelife;
 
     private Spinner spinner;
 
@@ -69,8 +68,11 @@ public class GameScreen implements Screen, ContactListener {
     private Box2DDebugRenderer renderer = new Box2DDebugRenderer();
 
 
-    public GameScreen(Game game) {
+    public GameScreen(Game game, int score, boolean isRelife) {
         Box2D.init();
+
+        SCORE = score;
+        this.isRelife = isRelife;
 
         preferences = new GamePreferences();
         audioManager = AudioManager.getInstance();
@@ -163,21 +165,22 @@ public class GameScreen implements Screen, ContactListener {
     public void setUpLabels() {
         setUpScoreLabel();
         setUpMoneyLabel();
+        setUpBonusLabel();
     }
 
-    public void setUpMoneyLabel(){
+    public void setUpMoneyLabel() {
         moneyImage = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
         moneyImage.setSize(2.5f, 2.5f);
-        moneyImage.setPosition(Constants.WIDTH*2/3, onFinish.getY() + onFinish.getHeight() * 1.3f + moneyImage.getHeight()/5.5f);
-        moneyImage.setOrigin(moneyImage.getWidth()/2, moneyImage.getHeight()/2);
+        moneyImage.setPosition(Constants.WIDTH * 2 / 3, onFinish.getY() + onFinish.getHeight() * 1.3f + moneyImage.getHeight() / 5.5f);
+        moneyImage.setOrigin(moneyImage.getWidth() / 2, moneyImage.getHeight() / 2);
         moneyImage.setVisible(false);
         stage.addActor(moneyImage);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getMediumFont();
-        moneyLabel = new Label(" " + SCORE, labelStyle);
+        moneyLabel = new Label(" " + 0, labelStyle);
         moneyLabel.setFontScale(0.065f);
-        moneyLabel.setSize(moneyLabel.getWidth() * moneyLabel.getFontScaleX(),moneyLabel.getHeight() * moneyLabel.getFontScaleY());
+        moneyLabel.setSize(moneyLabel.getWidth() * moneyLabel.getFontScaleX(), moneyLabel.getHeight() * moneyLabel.getFontScaleY());
         moneyLabel.setPosition(moneyImage.getX() - moneyLabel.getWidth(), moneyImage.getY());
         moneyLabel.setVisible(false);
         stage.addActor(moneyLabel);
@@ -192,6 +195,18 @@ public class GameScreen implements Screen, ContactListener {
         scoreLabel.setPosition(Constants.WIDTH / 2 - scoreLabel.getWidth() / 2, Constants.HEIGHT * 4 / 5 - scoreLabel.getHeight() / 2);
         scoreLabel.setAlignment(Align.center);
         stage.addActor(scoreLabel);
+    }
+
+    public void setUpBonusLabel() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = AssetsManager.getMediumFont();
+        bonusLabel = new Label("extra life", labelStyle);
+        bonusLabel.setFontScale(0.065f);
+        bonusLabel.setSize(bonusLabel.getWidth() * bonusLabel.getFontScaleX(), bonusLabel.getHeight() * bonusLabel.getFontScaleY());
+        bonusLabel.setPosition(Constants.WIDTH / 4 - bonusLabel.getWidth() * 2 / 5, Constants.HEIGHT / 2 - Constants.RECTANGLE_BUTTON_HEIGHT * 1.5f * 1.65f);
+        bonusLabel.setAlignment(Align.center);
+        bonusLabel.setVisible(false);
+        stage.addActor(bonusLabel);
     }
 
     /**
@@ -222,14 +237,17 @@ public class GameScreen implements Screen, ContactListener {
 
     public void setUpPlayButton() {
         playButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "playbtn", false);
-        playButton.setPosition(Constants.WIDTH * 3 / 4 - playButton.getWidth() * 3 / 5 , Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
+        playButton.setPosition(Constants.WIDTH * 3 / 4 - playButton.getWidth() * 3 / 5, Constants.HEIGHT / 2 - playButton.getHeight() * 1.65f);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                aGame.setScreen(new GameScreen(aGame));
+                aGame.setScreen(new GameScreen(aGame, 0, false));
             }
         });
         playButton.setVisible(false);
+        if (isRelife) {
+            playButton.addAction(Actions.moveTo(Constants.WIDTH / 2 - playButton.getWidth() / 2, playButton.getY()));
+        }
         stage.addActor(playButton);
     }
 
@@ -239,9 +257,8 @@ public class GameScreen implements Screen, ContactListener {
         videoButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SCORE+=SCORE + 1;
-                moneyLabel.setText(" " + SCORE);
-                moneyImage.setX(moneyLabel.getX() + moneyLabel.getText().length + 0.7f);
+
+                aGame.setScreen(new GameScreen(aGame, SCORE, true));
             }
         });
         videoButton.setVisible(false);
@@ -362,14 +379,19 @@ public class GameScreen implements Screen, ContactListener {
                 onFinish.setVisible(true);
                 pauseButton.setVisible(false);
                 playButton.setVisible(true);
-                videoButton.setVisible(true);
+                if (!isRelife) {
+                    videoButton.setVisible(true);
+                    bonusLabel.setVisible(true);
+                }
                 homeButton.setVisible(true);
                 moneyLabel.setText(" " + SCORE);
                 moneyLabel.setVisible(true);
                 moneyImage.setVisible(true);
+                moneyImage.setX(moneyLabel.getX() + moneyLabel.getText().length + 0.7f);
+                moneyImage.addAction(Actions.rotateBy(22.5f));
                 SequenceAction sequenceAction = new SequenceAction();
-                sequenceAction.addAction(Actions.rotateBy(-45,0.4f,Interpolation.linear));
-                sequenceAction.addAction(Actions.rotateBy(45,0.4f,Interpolation.linear));
+                sequenceAction.addAction(Actions.rotateBy(-45, 0.4f, Interpolation.linear));
+                sequenceAction.addAction(Actions.rotateBy(45, 0.4f, Interpolation.linear));
                 RepeatAction infiniteLoop = new RepeatAction();
                 infiniteLoop.setCount(RepeatAction.FOREVER);
                 infiniteLoop.setAction(sequenceAction);
@@ -380,7 +402,7 @@ public class GameScreen implements Screen, ContactListener {
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
-                scoreLabel.addAction(Actions.moveTo(Constants.WIDTH /3 + scoreLabel.getWidth() / 2, onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
+                scoreLabel.addAction(Actions.moveTo(Constants.WIDTH / 3 - 1 + scoreLabel.getWidth() / 2, onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
                 preferences.setUserMoney(preferences.getUserMoney() + SCORE);
                 break;
         }

@@ -39,6 +39,7 @@ public class FlappySpinner extends Game {
 
 	@Override
 	public void dispose () {
+		AssetsManager.dispose();
 		AudioManager.getInstance().dispose();
 	}
 }

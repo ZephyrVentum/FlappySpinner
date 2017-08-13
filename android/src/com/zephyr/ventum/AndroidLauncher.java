@@ -13,6 +13,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.zephyr.ventum.interfaces.GameEventListener;
 
 public class AndroidLauncher extends AndroidApplication implements GameEventListener {
@@ -20,7 +21,10 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     protected AdView adView;
     protected View gameView;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-6916351754834612/3101802628";
+    //private static final String AD_UNIT_ID = "ca-app-pub-6916351754834612/3101802628";
+
+    private static final String AD_UNIT_ID = "ca-app-pub-9581992838845527/7251962154";
+    private static final String APP_UNIT_ID = "ca-app-pub-9581992838845527~8898239838";
     private static final String GOOGLE_PLAY_URL = "https://play.google.com/store/apps/developer?id=TheInvader360";
 
     @Override
@@ -29,6 +33,8 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.useAccelerometer = false;
         config.useGyroscope = false;
+
+        MobileAds.initialize(this, APP_UNIT_ID);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().getDecorView().setSystemUiVisibility(
