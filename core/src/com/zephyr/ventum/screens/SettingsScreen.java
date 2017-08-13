@@ -81,7 +81,7 @@ public class SettingsScreen implements Screen {
     public void setUpSoundButton() {
         boolean isEnable = preferences.isSoundEnable();
         String drawable = (isEnable) ? "sound" : "sound_off";
-        soundButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, drawable, false);
+        soundButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, drawable, false);
         soundButton.setPosition(1, 1);
         soundButton.addListener(new ChangeListener() {
             @Override
@@ -97,7 +97,7 @@ public class SettingsScreen implements Screen {
     public void setUpMusicButton() {
         boolean isEnable = preferences.isMusicEnable();
         String drawable = (isEnable) ? "music" : "music_off";
-        musicButton = new GameButton(Constants.LARGE_SQUARE_BUTTON_SIZE, Constants.LARGE_SQUARE_BUTTON_SIZE, drawable, false);
+        musicButton = new GameButton(Constants.SQUARE_BUTTON_SIZE, Constants.SQUARE_BUTTON_SIZE, drawable, false);
         musicButton.setPosition(1 + musicButton.getWidth() + 1, 1);
         musicButton.addListener(new ChangeListener() {
             @Override
