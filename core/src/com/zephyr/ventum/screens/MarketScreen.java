@@ -69,13 +69,15 @@ public class MarketScreen implements Screen {
     }
 
     public void initSkins() {
-        for (int i = 0; i < Constants.SKIN_COUNT; i++) {
-            skins.add(new Skin(
-                    Constants.SPINNER_SKINES[i],
-                    Constants.SKINS_NAMES[i],
-                    AssetsManager.getTextureRegion(Constants.SPINNER_SKINES[i]),
-                    10));
-        }
+        skins.add(new Skin(Constants.SPINNER_STANDARD_SKIN, "Standard Skin", AssetsManager.getTextureRegion(Constants.SPINNER_STANDARD_SKIN), 0));
+        skins.add(new Skin(Constants.SPINNER_LIGHT_SKIN, "Neon Light", AssetsManager.getTextureRegion(Constants.SPINNER_LIGHT_SKIN), 300));
+        skins.add(new Skin(Constants.SPINNER_SILVER_SKIN, "Silver Name", AssetsManager.getTextureRegion(Constants.SPINNER_SILVER_SKIN), 100));
+        skins.add(new Skin(Constants.SPINNER_GOLDEN_SKIN, "Golden Skin", AssetsManager.getTextureRegion(Constants.SPINNER_GOLDEN_SKIN), 150));
+        skins.add(new Skin(Constants.SPINNER_RAINBOW_SKIN, "Rainbow", AssetsManager.getTextureRegion(Constants.SPINNER_RAINBOW_SKIN), 200));
+        skins.add(new Skin(Constants.SPINNER_FIRE_SKIN, "Sacred Fire", AssetsManager.getTextureRegion(Constants.SPINNER_FIRE_SKIN), 200));
+        skins.add(new Skin(Constants.SPINNER_ARMY_SKIN, "ATO Skin", AssetsManager.getTextureRegion(Constants.SPINNER_ARMY_SKIN), 400));
+        skins.add(new Skin(Constants.SPINNER_HYPNO_SKIN, "Hypno Spinner", AssetsManager.getTextureRegion(Constants.SPINNER_HYPNO_SKIN), 400));
+        skins.add(new Skin(Constants.SPINNER_KITTY_SKIN, "Hello Kitty", AssetsManager.getTextureRegion(Constants.SPINNER_KITTY_SKIN), 500));
     }
 
     public void setUpBackground() {
@@ -143,9 +145,9 @@ public class MarketScreen implements Screen {
         stage.addActor(previousButton);
     }
 
-    public void setUpUseButton(){
+    public void setUpUseButton() {
         useBottom = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "use", true);
-        useBottom.setPosition(Constants.WIDTH/2 - useBottom.getWidth()/2,
+        useBottom.setPosition(Constants.WIDTH / 2 - useBottom.getWidth() / 2,
                 skinImage.getY() - useBottom.getHeight() - 2f);
         useBottom.addListener(new ClickListener() {
             @Override
@@ -159,18 +161,20 @@ public class MarketScreen implements Screen {
         stage.addActor(useBottom);
     }
 
-    public void setUpBuyButton(){
+    public void setUpBuyButton() {
         buyBottom = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH, Constants.RECTANGLE_BUTTON_HEIGHT, "market", false);
-        buyBottom.setPosition(Constants.WIDTH*2/3 - buyBottom.getWidth()/2,
+        buyBottom.setPosition(Constants.WIDTH * 2 / 3 - buyBottom.getWidth() / 2,
                 skinImage.getY() - buyBottom.getHeight() - 2f);
         buyBottom.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(preferences.getUserMoney() >= skins.get(position).getPrice()){
+                if (preferences.getUserMoney() >= skins.get(position).getPrice()) {
                     preferences.setUserMoney(preferences.getUserMoney() - skins.get(position).getPrice());
                     preferences.setSkinBought(skins.get(position).getName());
                     audioManager.playSound(audioManager.getMarketSound());
                     updateShownSkin();
+                } else {
+                    audioManager.playSound(audioManager.getGameoverSound());
                 }
             }
         });
@@ -198,9 +202,9 @@ public class MarketScreen implements Screen {
         updateShownSkin();
     }
 
-    public void updateShownSkin(){
+    public void updateShownSkin() {
         moneyLabel.setText("" + preferences.getUserMoney());
-        if(preferences.isSkinBought(skins.get(position).getName())){
+        if (preferences.isSkinBought(skins.get(position).getName())) {
             buyBottom.setVisible(false);
             imageCoinPrice.setVisible(false);
             priceLabel.setVisible(false);
@@ -212,7 +216,7 @@ public class MarketScreen implements Screen {
             useBottom.setVisible(false);
         }
 
-        if (skins.get(position).getName().equals(preferences.getCurrentSkin())){
+        if (skins.get(position).getName().equals(preferences.getCurrentSkin())) {
             useBottom.setChecked(true);
         } else {
             useBottom.setChecked(false);
@@ -225,22 +229,22 @@ public class MarketScreen implements Screen {
         setUpPriceLabel();
     }
 
-    public void setUpPriceLabel(){
+    public void setUpPriceLabel() {
         imageCoinPrice = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
         imageCoinPrice.setSize(2.5f, 2.5f);
-        imageCoinPrice.setPosition(Constants.WIDTH/3, skinImage.getY() - imageCoinPrice.getHeight()*1.25f - 2f);
+        imageCoinPrice.setPosition(Constants.WIDTH / 3, skinImage.getY() - imageCoinPrice.getHeight() * 1.25f - 2f);
         stage.addActor(imageCoinPrice);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getMediumFont();
-        priceLabel = new Label("" + skins.get(position).getPrice(), labelStyle);
+        priceLabel = new Label("000", labelStyle);
         priceLabel.setFontScale(0.065f);
-        priceLabel.setSize(priceLabel.getWidth() * priceLabel.getFontScaleX(),priceLabel.getHeight() * priceLabel.getFontScaleY());
-        priceLabel.setPosition(imageCoinPrice.getX() - priceLabel.getWidth(), skinImage.getY() - imageCoinPrice.getHeight()*1.25f  - 2f);
+        priceLabel.setSize(priceLabel.getWidth() * priceLabel.getFontScaleX(), priceLabel.getHeight() * priceLabel.getFontScaleY());
+        priceLabel.setPosition(imageCoinPrice.getX() - priceLabel.getWidth(), skinImage.getY() - imageCoinPrice.getHeight() * 1.25f - 2f);
         stage.addActor(priceLabel);
     }
 
-    public void setUpMoneyLabel(){
+    public void setUpMoneyLabel() {
         Image imageCoin = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
         imageCoin.setSize(2.5f, 2.5f);
         imageCoin.setPosition(Constants.WIDTH - imageCoin.getWidth() - 1f, Constants.HEIGHT - imageCoin.getHeight() - 1f);
@@ -250,19 +254,19 @@ public class MarketScreen implements Screen {
         labelStyle.font = AssetsManager.getMediumFont();
         moneyLabel = new Label("" + preferences.getUserMoney(), labelStyle);
         moneyLabel.setFontScale(0.065f);
-        moneyLabel.setSize(moneyLabel.getWidth() * moneyLabel.getFontScaleX(),moneyLabel.getHeight() * moneyLabel.getFontScaleY());
+        moneyLabel.setSize(moneyLabel.getWidth() * moneyLabel.getFontScaleX(), moneyLabel.getHeight() * moneyLabel.getFontScaleY());
         moneyLabel.setPosition(imageCoin.getX() - moneyLabel.getWidth(), imageCoin.getY());
         stage.addActor(moneyLabel);
     }
 
-    public void setUpSkinNameLabel(){
+    public void setUpSkinNameLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = AssetsManager.getLargeFont();
         skinLabel = new Label(skins.get(position).getLabel(), labelStyle);
         skinLabel.setFontScale(0.065f);
         skinLabel.setSize(Constants.WIDTH, Constants.LARGE_FONT_SIZE * skinLabel.getFontScaleY() + 1);
         skinLabel.setAlignment(Align.center);
-        skinLabel.setPosition(0, Constants.HEIGHT*2/3);
+        skinLabel.setPosition(0, Constants.HEIGHT * 2 / 3);
 
         stage.addActor(skinLabel);
     }
