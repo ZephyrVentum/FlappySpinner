@@ -257,8 +257,19 @@ public class GameScreen implements Screen, ContactListener {
         videoButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                FlappySpinner.gameManager.displayVungle(new VungleCallBackListener() {
+                    @Override
+                    public void vungleCallBack() {
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                aGame.setScreen(new GameScreen(aGame, SCORE, true));
+                            }
+                        });
+                    }
+                });
 
-                aGame.setScreen(new GameScreen(aGame, SCORE, true));
+                //aGame.setScreen(new GameScreen(aGame, SCORE, true));
             }
         });
         videoButton.setVisible(false);
@@ -470,5 +481,9 @@ public class GameScreen implements Screen, ContactListener {
         infiniteLoop.setCount(RepeatAction.FOREVER);
         infiniteLoop.setAction(sequenceAction);
         return infiniteLoop;
+    }
+
+    public interface VungleCallBackListener {
+        void vungleCallBack();
     }
 }

@@ -3,6 +3,8 @@ package com.zephyr.ventum;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,18 +16,27 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.vungle.publisher.AdConfig;
+import com.vungle.publisher.VungleAdEventListener;
+import com.vungle.publisher.VungleInitListener;
+import com.vungle.publisher.VunglePub;
 import com.zephyr.ventum.interfaces.GameEventListener;
+import com.zephyr.ventum.screens.GameScreen;
 
 public class AndroidLauncher extends AndroidApplication implements GameEventListener {
 
     protected AdView adView;
     protected View gameView;
 
-    //private static final String AD_UNIT_ID = "ca-app-pub-6916351754834612/3101802628";
+    private GameScreen.VungleCallBackListener listener;
 
     private static final String AD_UNIT_ID = "ca-app-pub-9581992838845527/7251962154";
     private static final String APP_UNIT_ID = "ca-app-pub-9581992838845527~8898239838";
-    private static final String GOOGLE_PLAY_URL = "https://play.google.com/store/apps/developer?id=TheInvader360";
+    private static final String APP_VUNGLE_ID = "59a0624c7e5f852824000695";
+    private final static String LOG_TAG = "Flappy Spiiner";
+    private final String[] placement_list = {"DEFAULT64892"};
+
+    final VunglePub vunglePub = VunglePub.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,18 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         config.useGyroscope = false;
 
         MobileAds.initialize(this, APP_UNIT_ID);
+        vunglePub.init(this, APP_VUNGLE_ID, placement_list, new VungleInitListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(LOG_TAG, "init success");
+                vunglePub.clearAndSetEventListeners(vungleDefaultListener);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().getDecorView().setSystemUiVisibility(
@@ -102,8 +125,23 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // remove VungleAdEventListeners
+        vunglePub.removeEventListeners(vungleDefaultListener);
+        super.onDestroy();
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
+        vunglePub.onResume();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -122,6 +160,20 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
             }
         });
 
+    }
+
+    @Override
+    public void displayVungle(GameScreen.VungleCallBackListener listener) {
+        this.listener = listener;
+        if (vunglePub != null && vunglePub.isInitialized()) {
+            // Check a Placement if it is ready to play the Ad
+            if (vunglePub.isAdPlayable(placement_list[0])) {
+                // Play a Placement ad with Placement ID, you can pass AdConfig to customize your ad
+                AdConfig overrideConfig = new AdConfig();
+                overrideConfig.setBackButtonImmediatelyEnabled(false);
+                vunglePub.playAd(placement_list[0], overrideConfig);
+            }
+        }
     }
 
     @Override
@@ -152,4 +204,46 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share!"));
     }
+
+    private final VungleAdEventListener vungleDefaultListener = new VungleAdEventListener() {
+
+        @Override
+        public void onAdEnd(@NonNull String placementReferenceId, boolean wasSuccessFulView, boolean wasCallToActionClicked) {
+            // Called when user exits the ad and control is returned to your application
+            // if wasSuccessfulView is true, the user watched the ad and could be rewarded
+            // if wasCallToActionClicked is true, the user clicked the call to action button in the ad.
+            Log.w(LOG_TAG, "onAdEnd: " + placementReferenceId + " ,wasSuccessfulView: " + wasSuccessFulView + " ,wasCallToActionClicked: " + wasCallToActionClicked);
+            if(wasSuccessFulView) {
+                listener.vungleCallBack();
+            }
+        }
+
+        @Override
+        public void onAdStart(@NonNull String placementReferenceId) {
+            // Called before playing an ad
+            Log.w(LOG_TAG, "onAdStart: " + placementReferenceId);
+        }
+
+        @Override
+        public void onUnableToPlayAd(@NonNull String placementReferenceId, String reason) {
+            // Called after playAd(placementId, adConfig) is unable to play the ad
+            Log.w(LOG_TAG, "onUnableToPlayAd: " + placementReferenceId + " ,reason: " + reason);
+        }
+
+        @Override
+        public void onAdAvailabilityUpdate(@NonNull String placementReferenceId, boolean isAdAvailable) {
+
+            // Notifies ad availability for the indicated placement
+            // There can be duplicate notifications
+            Log.w(LOG_TAG, "onAdAvailabilityUpdate: " + placementReferenceId + " isAdAvailable: " + isAdAvailable);
+
+            final String placementIdUpdated = placementReferenceId;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
+    };
 }
