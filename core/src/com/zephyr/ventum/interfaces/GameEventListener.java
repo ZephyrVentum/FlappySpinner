@@ -16,6 +16,8 @@
 
 package com.zephyr.ventum.interfaces;
 
+import com.zephyr.ventum.screens.GameScreen;
+
 /**
  * Game events that are platform specific (i.e. submitting a score or displaying an ad inn an
  * Android app is different than doing the same in a desktop app).
@@ -32,7 +34,12 @@ public interface GameEventListener {
     public void hideAd();
 
     /**
-     * Hides an ad
+     *
+     */
+    public void displayVungle(GameScreen.VungleCallBackListener listener);
+
+    /**
+     * change bg for AdMobs
      */
     public void changeBackgroundColor(String color);
 

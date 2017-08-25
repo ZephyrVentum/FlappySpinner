@@ -1,6 +1,10 @@
 package com.zephyr.ventum.utils;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.zephyr.ventum.models.Skin;
+
+import java.util.ArrayList;
 
 /**
  * Created by ZiFir on 08.07.2017.
@@ -111,7 +115,6 @@ public class Constants {
     public static final String BUTTON_SETTINGS_PRESSED_NAME = "settings_pressed";
 
 
-
     public static final Vector2 SPINNER_POSITIONS = new Vector2(
             WIDTH / 2 - AssetsManager.getTextureRegion(SPINNER_STANDARD_SKIN).getRegionWidth() * 0.05f / 2,
             HEIGHT / 2 - AssetsManager.getTextureRegion(SPINNER_STANDARD_SKIN).getRegionHeight() * 0.05f / 2);
@@ -131,6 +134,7 @@ public class Constants {
     };
 
     public static int SKIN_COUNT = SPINNER_SKINES.length;
+
 
     public static final String[] SKINS_NAMES = {
             "Standard Skin",

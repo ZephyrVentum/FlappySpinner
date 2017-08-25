@@ -1,6 +1,7 @@
 package com.zephyr.ventum.utils;
 
 import com.zephyr.ventum.interfaces.GameEventListener;
+import com.zephyr.ventum.screens.GameScreen;
 
 /**
  * Created by sashaklimenko on 8/2/17.
@@ -22,6 +23,11 @@ public class GameManager implements GameEventListener{
     @Override
     public void hideAd() {
         gameEventListener.hideAd();
+    }
+
+    @Override
+    public void displayVungle(GameScreen.VungleCallBackListener listener) {
+        gameEventListener.displayVungle(listener);
     }
 
     @Override

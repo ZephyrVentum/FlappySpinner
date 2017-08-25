@@ -33,6 +33,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -62,7 +63,14 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-        
+
+        compile('javax.inject:javax.inject:1',
+                'com.google.dagger:dagger:2.7',
+                'de.greenrobot:eventbus:2.2.1',
+                'io.reactivex:rxjava:1.2.0',
+                'io.reactivex:rxandroid:1.2.1')
+
+        compile 'com.github.vungle:vungle-android-sdk:5.1.0'
     }
 }
 

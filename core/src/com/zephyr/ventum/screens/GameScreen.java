@@ -171,7 +171,7 @@ public class GameScreen implements Screen, ContactListener {
     public void setUpMoneyLabel() {
         moneyImage = new Image(AssetsManager.getTextureRegion(Constants.COIN_NAME));
         moneyImage.setSize(2.5f, 2.5f);
-        moneyImage.setPosition(Constants.WIDTH * 2 / 3, onFinish.getY() + onFinish.getHeight() * 1.3f + moneyImage.getHeight() / 5.5f);
+        moneyImage.setPosition(Constants.WIDTH * 2 / 3 + 0.5f, onFinish.getY() + onFinish.getHeight() * 1.3f + moneyImage.getHeight() / 5.5f);
         moneyImage.setOrigin(moneyImage.getWidth() / 2, moneyImage.getHeight() / 2);
         moneyImage.setVisible(false);
         stage.addActor(moneyImage);
@@ -203,7 +203,7 @@ public class GameScreen implements Screen, ContactListener {
         bonusLabel = new Label("extra life", labelStyle);
         bonusLabel.setFontScale(0.065f);
         bonusLabel.setSize(bonusLabel.getWidth() * bonusLabel.getFontScaleX(), bonusLabel.getHeight() * bonusLabel.getFontScaleY());
-        bonusLabel.setPosition(Constants.WIDTH / 4 - bonusLabel.getWidth() * 2 / 5, Constants.HEIGHT / 2 - Constants.RECTANGLE_BUTTON_HEIGHT * 1.5f * 1.65f);
+        bonusLabel.setPosition(Constants.WIDTH / 4 - bonusLabel.getWidth() * 2 / 5, Constants.HEIGHT / 2 - Constants.RECTANGLE_BUTTON_HEIGHT * 1.5f * 1.65f + 0.4f);
         bonusLabel.setAlignment(Align.center);
         bonusLabel.setVisible(false);
         stage.addActor(bonusLabel);
@@ -257,8 +257,19 @@ public class GameScreen implements Screen, ContactListener {
         videoButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                FlappySpinner.gameManager.displayVungle(new VungleCallBackListener() {
+                    @Override
+                    public void vungleCallBack() {
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                aGame.setScreen(new GameScreen(aGame, SCORE, true));
+                            }
+                        });
+                    }
+                });
 
-                aGame.setScreen(new GameScreen(aGame, SCORE, true));
+                //aGame.setScreen(new GameScreen(aGame, SCORE, true));
             }
         });
         videoButton.setVisible(false);
@@ -470,5 +481,9 @@ public class GameScreen implements Screen, ContactListener {
         infiniteLoop.setCount(RepeatAction.FOREVER);
         infiniteLoop.setAction(sequenceAction);
         return infiniteLoop;
+    }
+
+    public interface VungleCallBackListener {
+        void vungleCallBack();
     }
 }
