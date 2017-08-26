@@ -90,7 +90,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
         adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId(AD_UNIT_ID);
-        adView.setId(1337); // this is an arbitrary id, allows for relative positioning in createGameView()
+        adView.setId(R.id.adsMobId); // this is an arbitrary id, allows for relative positioning in createGameView()
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
