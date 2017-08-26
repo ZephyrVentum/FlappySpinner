@@ -34,7 +34,7 @@ public class WorldUtils {
         fixtureDef.shape = circle;
         fixtureDef.density = Constants.SPENNER_DENSITY;
         fixtureDef.friction = 0f;
-        fixtureDef.restitution = 0.6f;
+        fixtureDef.restitution = 0.45f;
         body.createFixture(fixtureDef);
         circle.dispose();
         return body;
@@ -78,7 +78,7 @@ public class WorldUtils {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Constants.TUBE_WIDTH / 2, Constants.TUBE_HEIGHT / 2);
         Body bodyTop = world.createBody(bodyDef);
-        bodyTop.createFixture(shape, 12f);
+        bodyTop.createFixture(shape, 0f);
         bodyTop.resetMassData();
         shape.dispose();
         bodyTop.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);
@@ -96,7 +96,7 @@ public class WorldUtils {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Constants.TUBE_WIDTH / 2, Constants.TUBE_HEIGHT / 2);
         Body body = world.createBody(bodyDef);
-        body.createFixture(shape, 12f);
+        body.createFixture(shape, 0f);
         body.resetMassData();
         shape.dispose();
         body.setLinearVelocity(Constants.TUBE_SPEED, 0.0f);

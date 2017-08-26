@@ -23,6 +23,8 @@ public class Constants {
     public static final float TUBE_WIDTH = 3.5f;
     public static final float TUBE_HEIGHT = 30f;
     public static final float TUBE_SPACING = 7.7f;
+    public static final float MAX_TUBE_SPACING = 7.7f;
+    public static final float MIN_TUBE_SPACING = 4.5f;
     public static final float TUBE_SPEED = -9f;
 
     public static final float LOGO_HEIGHT = 11.45f;

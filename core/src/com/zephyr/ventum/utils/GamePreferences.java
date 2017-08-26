@@ -43,7 +43,7 @@ public class GamePreferences {
     }
 
     public int getUserMoney() {
-        return preferences.getInteger("money", 100);
+        return preferences.getInteger("money", 50);
     }
 
     public void setSkinBought(String skinName) {

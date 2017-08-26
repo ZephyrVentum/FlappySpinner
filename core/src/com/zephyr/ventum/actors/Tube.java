@@ -9,6 +9,8 @@ import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.AssetsManager;
 import com.zephyr.ventum.utils.WorldUtils;
 
+import java.util.Random;
+
 /**
  * Created by sashaklimenko on 7/14/17.
  */
@@ -17,10 +19,12 @@ public class Tube extends BaseActor {
 
     private TextureRegion topTubeTexture, bottomTubeTexture;
     private Body topTubeBody, bottomTubeBody;
+    private Random random;
 
     private boolean isSpinnerScoreWrited = false;
 
     public Tube(Array<Body> bodies) {
+        random = new Random();
 
         topTubeTexture = AssetsManager.getTextureRegion(Constants.TOP_TUBE_NAME);
         bottomTubeTexture = AssetsManager.getTextureRegion(Constants.BOTTOM_TUBE_NAME);
@@ -62,8 +66,9 @@ public class Tube extends BaseActor {
         topTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH,
                 WorldUtils.generateTubePosition(),
                 0);
+        float newTubeSpacing = random.nextFloat()*(Constants.MAX_TUBE_SPACING - Constants.MIN_TUBE_SPACING) + Constants.MIN_TUBE_SPACING;
         bottomTubeBody.setTransform(Constants.WIDTH + Constants.TUBE_WIDTH,
-                topTubeBody.getPosition().y - Constants.TUBE_SPACING - Constants.TUBE_HEIGHT,
+                topTubeBody.getPosition().y - newTubeSpacing - Constants.TUBE_HEIGHT,
                 0);
         setSpinnerScoreWrited(false);
     }

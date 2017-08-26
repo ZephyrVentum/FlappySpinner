@@ -70,14 +70,14 @@ public class MarketScreen implements Screen {
 
     public void initSkins() {
         skins.add(new Skin(Constants.SPINNER_STANDARD_SKIN, "Standard Skin", AssetsManager.getTextureRegion(Constants.SPINNER_STANDARD_SKIN), 0));
-        skins.add(new Skin(Constants.SPINNER_LIGHT_SKIN, "Neon Light", AssetsManager.getTextureRegion(Constants.SPINNER_LIGHT_SKIN), 300));
+        skins.add(new Skin(Constants.SPINNER_LIGHT_SKIN, "Neon Light", AssetsManager.getTextureRegion(Constants.SPINNER_LIGHT_SKIN), 400));
         skins.add(new Skin(Constants.SPINNER_SILVER_SKIN, "Silver Name", AssetsManager.getTextureRegion(Constants.SPINNER_SILVER_SKIN), 100));
-        skins.add(new Skin(Constants.SPINNER_GOLDEN_SKIN, "Golden Skin", AssetsManager.getTextureRegion(Constants.SPINNER_GOLDEN_SKIN), 150));
-        skins.add(new Skin(Constants.SPINNER_RAINBOW_SKIN, "Rainbow", AssetsManager.getTextureRegion(Constants.SPINNER_RAINBOW_SKIN), 200));
-        skins.add(new Skin(Constants.SPINNER_FIRE_SKIN, "Sacred Fire", AssetsManager.getTextureRegion(Constants.SPINNER_FIRE_SKIN), 200));
-        skins.add(new Skin(Constants.SPINNER_ARMY_SKIN, "ATO Skin", AssetsManager.getTextureRegion(Constants.SPINNER_ARMY_SKIN), 400));
-        skins.add(new Skin(Constants.SPINNER_HYPNO_SKIN, "Hypno Spinner", AssetsManager.getTextureRegion(Constants.SPINNER_HYPNO_SKIN), 400));
-        skins.add(new Skin(Constants.SPINNER_KITTY_SKIN, "Hello Kitty", AssetsManager.getTextureRegion(Constants.SPINNER_KITTY_SKIN), 500));
+        skins.add(new Skin(Constants.SPINNER_GOLDEN_SKIN, "Golden Skin", AssetsManager.getTextureRegion(Constants.SPINNER_GOLDEN_SKIN), 200));
+        skins.add(new Skin(Constants.SPINNER_RAINBOW_SKIN, "Rainbow", AssetsManager.getTextureRegion(Constants.SPINNER_RAINBOW_SKIN), 300));
+        skins.add(new Skin(Constants.SPINNER_FIRE_SKIN, "Sacred Fire", AssetsManager.getTextureRegion(Constants.SPINNER_FIRE_SKIN), 350));
+        skins.add(new Skin(Constants.SPINNER_ARMY_SKIN, "ATO Skin", AssetsManager.getTextureRegion(Constants.SPINNER_ARMY_SKIN), 500));
+        skins.add(new Skin(Constants.SPINNER_HYPNO_SKIN, "Hypno Spinner", AssetsManager.getTextureRegion(Constants.SPINNER_HYPNO_SKIN), 500));
+        skins.add(new Skin(Constants.SPINNER_KITTY_SKIN, "Hello Kitty", AssetsManager.getTextureRegion(Constants.SPINNER_KITTY_SKIN), 750));
     }
 
     public void setUpBackground() {
