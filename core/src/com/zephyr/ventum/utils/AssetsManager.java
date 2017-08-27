@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sashaklimenko on 7/6/17.

@@ -1,10 +1,6 @@
 package com.zephyr.ventum.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.zephyr.ventum.models.Skin;
-
-import java.util.ArrayList;
 
 /**
  * Created by ZiFir on 08.07.2017.
