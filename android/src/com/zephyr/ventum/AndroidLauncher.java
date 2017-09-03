@@ -2,6 +2,7 @@ package com.zephyr.ventum;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,23 +11,31 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.GameHelper;
 import com.vungle.publisher.AdConfig;
 import com.vungle.publisher.VungleAdEventListener;
 import com.vungle.publisher.VungleInitListener;
 import com.vungle.publisher.VunglePub;
 import com.zephyr.ventum.interfaces.GameEventListener;
 import com.zephyr.ventum.screens.GameScreen;
+import com.zephyr.ventum.utils.GamePreferences;
+import com.zephyr.ventum.utils.PlayServices;
 
-public class AndroidLauncher extends AndroidApplication implements GameEventListener {
+public class AndroidLauncher extends AndroidApplication implements GameEventListener, PlayServices {
 
     protected AdView adView;
     protected View gameView;
+
+    private GameHelper gameHelper;
+    private final static int requestCode = 1;
 
     private GameScreen.VungleCallBackListener listener;
 
@@ -41,6 +50,22 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+        gameHelper.enableDebugLog(false);
+
+        GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
+            @Override
+            public void onSignInFailed() {
+            }
+
+            @Override
+            public void onSignInSucceeded() {
+            }
+        };
+
+        gameHelper.setup(gameHelperListener);
+
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.useAccelerometer = false;
         config.useGyroscope = false;
@@ -125,6 +150,24 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        gameHelper.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        gameHelper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        gameHelper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         vunglePub.onPause();
@@ -159,7 +202,6 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
                 adView.setVisibility(View.GONE);
             }
         });
-
     }
 
     @Override
@@ -187,22 +229,115 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
-    public void displayLeaderboard() {
-
-    }
-
-    @Override
-    public void displayAchievements() {
-
-    }
-
-    @Override
     public void share() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out Flappy Spinner! \n https://github.com/ZephyrVentum/FlappySpinner");
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share!"));
+    }
+
+    @Override
+    public String get10ScoreAchievementId() {
+        return getResources().getString(R.string.achievement_10_score);
+    }
+
+    @Override
+    public String get20ScoreAchievementId() {
+        return getResources().getString(R.string.achievement_20_score);
+    }
+
+    @Override
+    public String get100ScoreAchievementId() {
+        return getResources().getString(R.string.achievement_100_score);
+    }
+
+    @Override
+    public String get10GamesAchievementId() {
+        return getResources().getString(R.string.achievement_10_games);
+    }
+
+    @Override
+    public String get50GamesAchievementId() {
+        return getResources().getString(R.string.achievement_50_games);
+    }
+
+    @Override
+    public String get100GamesAchievementId() {
+        return getResources().getString(R.string.achievement_100_games);
+    }
+
+    @Override
+    public String getVentumZephyrAchievementId() {
+        return getResources().getString(R.string.achievement_ventum_zephyr);
+    }
+
+    @Override
+    public void signIn() {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    gameHelper.beginUserInitiatedSignIn();
+                }
+            });
+        } catch (Exception e) {
+            Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
+        }
+    }
+
+    @Override
+    public void signOut() {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    gameHelper.signOut();
+                }
+            });
+        } catch (Exception e) {
+            Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
+        }
+    }
+
+    @Override
+    public void unlockAchievement(String id) {
+        if (gameHelper.isSignedIn()) {
+            Games.Achievements.unlock(gameHelper.getApiClient(), id);
+            new GamePreferences().setUnlockedAchievement(id);
+        }
+    }
+
+    @Override
+    public void submitScore(int highScore) {
+        if (isSignedIn() == true) {
+            Games.Leaderboards.submitScore(gameHelper.getApiClient(),
+                    getString(R.string.leaderboard_high_score_leaders), highScore);
+        }
+    }
+
+    @Override
+    public void showAchievement() {
+        if (isSignedIn() == true) {
+            startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), requestCode);
+        } else {
+            signIn();
+        }
+    }
+
+    @Override
+    public void showScore() {
+        if (isSignedIn() == true) {
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
+                    getString(R.string.leaderboard_high_score_leaders)), requestCode);
+        } else {
+            signIn();
+        }
+    }
+
+    @Override
+    public boolean isSignedIn() {
+        return gameHelper.isSignedIn();
     }
 
     private final VungleAdEventListener vungleDefaultListener = new VungleAdEventListener() {
@@ -213,7 +348,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
             // if wasSuccessfulView is true, the user watched the ad and could be rewarded
             // if wasCallToActionClicked is true, the user clicked the call to action button in the ad.
             Log.w(LOG_TAG, "onAdEnd: " + placementReferenceId + " ,wasSuccessfulView: " + wasSuccessFulView + " ,wasCallToActionClicked: " + wasCallToActionClicked);
-            if(wasSuccessFulView) {
+            if (wasSuccessFulView) {
                 listener.vungleCallBack();
             }
         }

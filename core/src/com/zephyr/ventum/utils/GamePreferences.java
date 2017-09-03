@@ -10,6 +10,7 @@ import com.badlogic.gdx.Preferences;
 public class GamePreferences {
 
     private Preferences preferences;
+    private static final String COUNT_KEY = "_COUNT", UNLOCK_KEY = "_UNLOCK";
 
     public GamePreferences() {
         preferences = getInstance();
@@ -20,8 +21,10 @@ public class GamePreferences {
     }
 
     public void setMaxScore(int score) {
-        preferences.putInteger("max_score", score);
-        preferences.flush();
+        if (score > getMaxScore()) {
+            preferences.putInteger("max_score", score);
+            preferences.flush();
+        }
     }
 
     public int getMaxScore() {
@@ -73,4 +76,23 @@ public class GamePreferences {
         preferences.putBoolean("music_on", !isMusicEnable());
         preferences.flush();
     }
+
+    public void setUnlockedAchievement(String id) {
+        preferences.putBoolean(id + UNLOCK_KEY, true);
+        preferences.flush();
+    }
+
+    public boolean isAchievementUnlocked(String id) {
+        return preferences.getBoolean(id + UNLOCK_KEY, false);
+    }
+
+    public void incrementAchievementCount(String id, int steps) {
+        preferences.putInteger(id + COUNT_KEY, getAchievementCount(id) + steps);
+        preferences.flush();
+    }
+
+    public int getAchievementCount(String id) {
+        return preferences.getInteger(id + COUNT_KEY, 0);
+    }
+
 }

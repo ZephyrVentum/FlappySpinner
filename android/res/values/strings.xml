@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">FlappySpinner</string>
-
+    <?xml version="1.0" encoding="utf-8"?>
+    <!-- app_id -->
+    <string name="app_id" translatable="false">221803861968</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">com.zephyr.ventum.gameservices</string>
+    <!-- achievement Mom's Miner -->
+    <string name="achievement_10_score" translatable="false">CgkI0K-ppLoGEAIQAQ</string>
+    <!-- achievement Crypto Kid -->
+    <string name="achievement_20_score" translatable="false">CgkI0K-ppLoGEAIQAg</string>
+    <!-- achievement Minner Cry -->
+    <string name="achievement_100_score" translatable="false">CgkI0K-ppLoGEAIQAw</string>
+    <!-- achievement Rider from 2k17 -->
+    <string name="achievement_10_games" translatable="false">CgkI0K-ppLoGEAIQBA</string>
+    <!-- achievement Extra Chromosome -->
+    <string name="achievement_50_games" translatable="false">CgkI0K-ppLoGEAIQBQ</string>
+    <!-- achievement Next Avatar -->
+    <string name="achievement_100_games" translatable="false">CgkI0K-ppLoGEAIQBg</string>
+    <!-- achievement VENTUM ZEPHYR -->
+    <string name="achievement_ventum_zephyr" translatable="false">CgkI0K-ppLoGEAIQBw</string>
+    <!-- leaderboard High Score Leaders! -->
+    <string name="leaderboard_high_score_leaders" translatable="false">CgkI0K-ppLoGEAIQCA</string>
 </resources>

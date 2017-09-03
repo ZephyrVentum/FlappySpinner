@@ -23,6 +23,20 @@ import com.zephyr.ventum.screens.GameScreen;
  * Android app is different than doing the same in a desktop app).
  */
 public interface GameEventListener {
+    public void signIn();
+
+    public void signOut();
+
+    public void unlockAchievement(String id);
+
+    public void submitScore(int highScore);
+
+    public void showAchievement();
+
+    public void showScore();
+
+    public boolean isSignedIn();
+
     /**
      * Displays an ad
      */
@@ -43,18 +57,24 @@ public interface GameEventListener {
      */
     public void changeBackgroundColor(String color);
 
-    /**
-     * Displays the scores leaderboard
-     */
-    public void displayLeaderboard();
-
-    /**
-     * Displays the game's achievements
-     */
-    public void displayAchievements();
 
     /**
      * Shares the game's website
      */
     public void share();
+
+
+    public String get10ScoreAchievementId();
+
+    public String get20ScoreAchievementId();
+
+    public String get100ScoreAchievementId();
+
+    public String get10GamesAchievementId();
+
+    public String get50GamesAchievementId();
+
+    public String get100GamesAchievementId();
+
+    public String getVentumZephyrAchievementId();
 }

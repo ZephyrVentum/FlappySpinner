@@ -407,8 +407,8 @@ public class GameScreen implements Screen, ContactListener {
                 infiniteLoop.setCount(RepeatAction.FOREVER);
                 infiniteLoop.setAction(sequenceAction);
                 moneyImage.addAction(infiniteLoop);
+                preferences.setMaxScore(SCORE);
                 if (SCORE > preferences.getMaxScore()) {
-                    preferences.setMaxScore(SCORE);
                     scoreLabel.setText(" New record! \n" + "Score:" + SCORE);
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
