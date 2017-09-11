@@ -10,11 +10,14 @@ import com.zephyr.ventum.screens.GameScreen;
 public class GameManager implements GameEventListener{
 
     private GameEventListener gameEventListener;
-    private GamePreferences preferences = new GamePreferences();
-    public static final String ACHIEVEMENT_PREFERENCES = "achievement_preferences";
+    private GamePreferences preferences;
 
     public void setGameEventListener(GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
+    }
+
+    public void setPreferences(GamePreferences preferences) {
+        this.preferences = preferences;
     }
 
     @Override

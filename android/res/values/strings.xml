@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FlappySpinner</string>
-    <?xml version="1.0" encoding="utf-8"?>
     <!-- app_id -->
     <string name="app_id" translatable="false">221803861968</string>
     <!-- package_name -->

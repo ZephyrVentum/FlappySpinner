@@ -193,6 +193,9 @@ public class MenuScreen implements Screen {
         achievementButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                if(FlappySpinner.gameManager != null) {
+                    FlappySpinner.gameManager.showAchievement();
+                }
             }
         });
         stage.addActor(achievementButton);
@@ -205,6 +208,9 @@ public class MenuScreen implements Screen {
         leaderbordsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                if(FlappySpinner.gameManager != null) {
+                    FlappySpinner.gameManager.showScore();
+                }
             }
         });
         stage.addActor(leaderbordsButton);

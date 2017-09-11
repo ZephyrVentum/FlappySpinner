@@ -19,8 +19,8 @@ public class FlappySpinner extends Game {
 
 	@Override
 	public void create () {
+		gameManager.setPreferences(new GamePreferences());
 		AssetsManager.initAssets();
-		GamePreferences.getInstance();
 		AudioManager.getInstance().init();
 
 		startMusic();

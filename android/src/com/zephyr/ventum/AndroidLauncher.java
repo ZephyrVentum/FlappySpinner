@@ -49,6 +49,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
         gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
@@ -84,7 +85,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
             }
         });
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
