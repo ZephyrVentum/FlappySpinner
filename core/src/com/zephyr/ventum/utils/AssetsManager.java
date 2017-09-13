@@ -18,7 +18,7 @@ public class AssetsManager {
 
     private static HashMap<String, TextureRegion> textureRegionHashMap = new HashMap<String, TextureRegion>();
     private static TextureAtlas textureAtlas;
-    private static BitmapFont largeFont, mediumFont, smallFont;
+    private static BitmapFont largeFont, mediumFont;
 
     public static void initAssets() {
 
@@ -124,10 +124,6 @@ public class AssetsManager {
         return mediumFont;
     }
 
-    public static BitmapFont getSmallFont() {
-        return smallFont;
-    }
-
     public static TextureRegion getTextureRegion(String key) {
         return textureRegionHashMap.get(key);
     }
@@ -137,7 +133,6 @@ public class AssetsManager {
     }
 
     public static void dispose(){
-        smallFont.dispose();
         mediumFont.dispose();
         largeFont.dispose();
         textureRegionHashMap.clear();

@@ -407,12 +407,12 @@ public class GameScreen implements Screen, ContactListener {
                 infiniteLoop.setCount(RepeatAction.FOREVER);
                 infiniteLoop.setAction(sequenceAction);
                 moneyImage.addAction(infiniteLoop);
-                preferences.setMaxScore(SCORE);
                 if (SCORE > preferences.getMaxScore()) {
                     scoreLabel.setText(" New record! \n" + "Score:" + SCORE);
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
+                preferences.setMaxScore(SCORE);
                 scoreLabel.addAction(Actions.moveTo(Constants.WIDTH / 3 - 1 + scoreLabel.getWidth() / 2, onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
                 preferences.setUserMoney(preferences.getUserMoney() + SCORE);
                 break;

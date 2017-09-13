@@ -1,7 +1,10 @@
 android {
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v4'
+    }
     signingConfigs {
     }
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     compileSdkVersion 26
     sourceSets {
         main {
@@ -20,6 +23,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.zephyr.ventum"
         minSdkVersion 16
         targetSdkVersion 26
@@ -133,4 +137,5 @@ idea {
     }
 }
 dependencies {
+    compile 'com.android.support:multidex:1.0.1'
 }
