@@ -330,6 +330,9 @@ public class GameScreen implements Screen, ContactListener {
         if (spinner.getSpinnerBodyX() < -1 || spinner.getSpinnerBodyX() > Constants.WIDTH + 1) {
             state = GameState.FINISH;
             changeGameState(GameState.FINISH);
+            if (spinner.getSpinnerBodyX()>Constants.WIDTH + 1){
+                FlappySpinner.gameManager.achievementVentumZephyr();
+            }
         }
         if (tubeFirst.getTubeBodyX() <= spinner.getSpinnerBodyX() && !tubeFirst.isSpinnerScoreWrited()) {
             tubeFirst.setSpinnerScoreWrited(true);
@@ -412,6 +415,7 @@ public class GameScreen implements Screen, ContactListener {
                 } else {
                     scoreLabel.setText("Score:" + SCORE + '\n' + "Best:" + preferences.getMaxScore());
                 }
+                FlappySpinner.gameManager.submitScore(SCORE);
                 preferences.setMaxScore(SCORE);
                 scoreLabel.addAction(Actions.moveTo(Constants.WIDTH / 3 - 1 + scoreLabel.getWidth() / 2, onFinish.getY() + onFinish.getHeight() * 1.3f + 0.1f, 0.6f, Interpolation.linear));
                 preferences.setUserMoney(preferences.getUserMoney() + SCORE);
