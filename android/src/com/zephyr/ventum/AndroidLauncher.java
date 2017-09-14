@@ -244,12 +244,12 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
-    public String get20ScoreAchievementId() {
+    public String get25ScoreAchievementId() {
         return getResources().getString(R.string.achievement_20_score);
     }
 
     @Override
-    public String get100ScoreAchievementId() {
+    public String get50ScoreAchievementId() {
         return getResources().getString(R.string.achievement_100_score);
     }
 
@@ -259,12 +259,12 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     }
 
     @Override
-    public String get50GamesAchievementId() {
+    public String get25GamesAchievementId() {
         return getResources().getString(R.string.achievement_50_games);
     }
 
     @Override
-    public String get100GamesAchievementId() {
+    public String get50GamesAchievementId() {
         return getResources().getString(R.string.achievement_100_games);
     }
 

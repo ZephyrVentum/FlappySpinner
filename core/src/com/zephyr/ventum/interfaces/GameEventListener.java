@@ -66,15 +66,15 @@ public interface GameEventListener {
 
     public String get10ScoreAchievementId();
 
-    public String get20ScoreAchievementId();
+    public String get25ScoreAchievementId();
 
-    public String get100ScoreAchievementId();
+    public String get50ScoreAchievementId();
 
     public String get10GamesAchievementId();
 
-    public String get50GamesAchievementId();
+    public String get25GamesAchievementId();
 
-    public String get100GamesAchievementId();
+    public String get50GamesAchievementId();
 
     public String getVentumZephyrAchievementId();
 }

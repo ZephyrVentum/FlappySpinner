@@ -41,12 +41,12 @@ public class GameManager implements GameEventListener {
             unlockAchievement(get10ScoreAchievementId());
         }
 
-        if (highScore >= 20 && !preferences.isAchievementUnlocked(get10ScoreAchievementId())) {
-            unlockAchievement(get10ScoreAchievementId());
+        if (highScore >= 25 && !preferences.isAchievementUnlocked(get25ScoreAchievementId())) {
+            unlockAchievement(get25ScoreAchievementId());
         }
 
-        if (highScore >= 100 && !preferences.isAchievementUnlocked(get10ScoreAchievementId())) {
-            unlockAchievement(get10ScoreAchievementId());
+        if (highScore >= 50 && !preferences.isAchievementUnlocked(get50ScoreAchievementId())) {
+            unlockAchievement(get50ScoreAchievementId());
         }
 
         if (!preferences.isAchievementUnlocked(get10GamesAchievementId())) {
@@ -56,17 +56,17 @@ public class GameManager implements GameEventListener {
             }
         }
 
+        if (!preferences.isAchievementUnlocked(get25GamesAchievementId())) {
+            preferences.incrementAchievementCount(get25GamesAchievementId(), 1);
+            if (preferences.getAchievementCount(get25GamesAchievementId()) >= 25) {
+                unlockAchievement(get25GamesAchievementId());
+            }
+        }
+
         if (!preferences.isAchievementUnlocked(get50GamesAchievementId())) {
             preferences.incrementAchievementCount(get50GamesAchievementId(), 1);
             if (preferences.getAchievementCount(get50GamesAchievementId()) >= 50) {
                 unlockAchievement(get50GamesAchievementId());
-            }
-        }
-
-        if (!preferences.isAchievementUnlocked(get100GamesAchievementId())) {
-            preferences.incrementAchievementCount(get100GamesAchievementId(), 1);
-            if (preferences.getAchievementCount(get100GamesAchievementId()) >= 100) {
-                unlockAchievement(get10GamesAchievementId());
             }
         }
     }
@@ -126,13 +126,13 @@ public class GameManager implements GameEventListener {
     }
 
     @Override
-    public String get20ScoreAchievementId() {
-        return gameEventListener.get20ScoreAchievementId();
+    public String get25ScoreAchievementId() {
+        return gameEventListener.get25ScoreAchievementId();
     }
 
     @Override
-    public String get100ScoreAchievementId() {
-        return gameEventListener.get100ScoreAchievementId();
+    public String get50ScoreAchievementId() {
+        return gameEventListener.get50ScoreAchievementId();
     }
 
     @Override
@@ -141,13 +141,13 @@ public class GameManager implements GameEventListener {
     }
 
     @Override
-    public String get50GamesAchievementId() {
-        return gameEventListener.get50GamesAchievementId();
+    public String get25GamesAchievementId() {
+        return gameEventListener.get25GamesAchievementId();
     }
 
     @Override
-    public String get100GamesAchievementId() {
-        return gameEventListener.get100GamesAchievementId();
+    public String get50GamesAchievementId() {
+        return gameEventListener.get50GamesAchievementId();
     }
 
     @Override
