@@ -233,7 +233,7 @@ public class AndroidLauncher extends AndroidApplication implements GameEventList
     public void share() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out Flappy Spinner! \n https://github.com/ZephyrVentum/FlappySpinner");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out Flappy Spinner! \n https://play.google.com/store/apps/details?id=com.zephyr.ventum");
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share!"));
     }
