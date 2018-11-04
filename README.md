@@ -13,7 +13,7 @@ Icons formatting for play market by [Elena Kiselova](http://designer.giver.guru/
 Tester - [Alexey Koshmanov](https://vk.com/id7591994)
 
 ## License
-Copyright 2017 Alexander Klimenko
+Copyright 2018 Alexander Klimenko
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
