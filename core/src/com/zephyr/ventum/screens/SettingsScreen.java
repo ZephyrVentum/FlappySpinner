@@ -17,6 +17,9 @@ import com.zephyr.ventum.utils.AudioManager;
 import com.zephyr.ventum.utils.Constants;
 import com.zephyr.ventum.utils.GamePreferences;
 
+import static com.zephyr.ventum.utils.Constants.PRIVACY_POLICY_BUTTON_PATH;
+import static com.zephyr.ventum.utils.Constants.PRIVACY_POLICY_BUTTON_PRESSED_PATH;
+
 /**
  * Created by sashaklimenko on 7/31/17.
  */
@@ -27,7 +30,7 @@ public class SettingsScreen implements Screen {
     private Stage stage;
     private GamePreferences preferences;
     private AudioManager audioManager;
-    private GameButton homeButton, musicButton, soundButton, githubButton;
+    private GameButton homeButton, musicButton, soundButton, githubButton, privacyButton;
     private Label developerLabel, designerLabel, testerLabel, poweredByLabel;
     private Label whoDeveloperLabel, whoDesignerLabel, whoTester, whoPowered;
 
@@ -47,11 +50,29 @@ public class SettingsScreen implements Screen {
         setUpMusicButton();
         setUpSoundButton();
         setUpGitHubButton();
+        setUpPrivacyPolicyButton();
     }
 
     public void setUpBackground() {
         Background background = new Background();
         stage.addActor(background);
+    }
+
+    private void setUpPrivacyPolicyButton() {
+        privacyButton = new GameButton(Constants.RECTANGLE_BUTTON_WIDTH,
+                Constants.RECTANGLE_BUTTON_HEIGHT,
+                PRIVACY_POLICY_BUTTON_PATH,
+                PRIVACY_POLICY_BUTTON_PRESSED_PATH,
+                false);
+        privacyButton.setPosition(Constants.WIDTH - privacyButton.getWidth() - 1, (2 * privacyButton.getHeight()) - 1.5f);
+        privacyButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                aGame.setScreen(new MenuScreen(aGame));
+                Gdx.net.openURI("https://zephyrventum.gitlab.io/privacy-policy/flappy-spinner-privacy-policy.html");
+            }
+        });
+        stage.addActor(privacyButton);
     }
 
     public void setUpHomeButton() {

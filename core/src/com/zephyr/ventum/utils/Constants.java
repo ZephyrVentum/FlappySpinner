@@ -58,6 +58,10 @@ public class Constants {
     public static final String FINISH_IMAGE_PATH = "gameover.png";
     public static final String RESUME_IMAGE_PATH = "on_resume.png";
 
+    public static final String PRIVACY_POLICY_BUTTON_PRESSED_PATH = "btn_policy_pressed.png";
+    public static final String PRIVACY_POLICY_BUTTON_PATH = "btn_policy.png";
+
+
     public static final String BACKGROUND_IMAGE_NAME = "background";
     public static final String GROUND_IMAGE_NAME = "ground";
     public static final String SKY_IMAGE_NAME = "sky";

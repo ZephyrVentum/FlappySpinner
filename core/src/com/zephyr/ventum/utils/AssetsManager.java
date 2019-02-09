@@ -86,6 +86,12 @@ public class AssetsManager {
         textureRegionHashMap.put(Constants.COIN_NAME,
                 textureAtlas.findRegion(Constants.COIN_NAME));
 
+        //privacy policy buttons
+        textureRegionHashMap.put(Constants.PRIVACY_POLICY_BUTTON_PRESSED_PATH,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.PRIVACY_POLICY_BUTTON_PRESSED_PATH))));
+        textureRegionHashMap.put(Constants.PRIVACY_POLICY_BUTTON_PATH,
+                new TextureRegion(new Texture(Gdx.files.internal(Constants.PRIVACY_POLICY_BUTTON_PATH))));
+
         //fonts
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("flappy_font.ttf"));
         generateLargeFont(generator);
