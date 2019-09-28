@@ -1,15 +1,23 @@
 # FlappySpinner
 
-FlappySpinner - game based on [libGDX](http://libgdx.badlogicgames.com) framework.<br>
+FlappySpinner - game based on <a href='http://libgdx.badlogicgames.com'>libGDX</a> framework.<br>
 Actually, this is clone of Flappy Bird, but bird looks like fidget spinner and tubes no longer end your game. 
+<br>No longer available on Google Play Market =(
 
-<a href='https://play.google.com/store/apps/details?id=com.zephyr.ventum'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width=250 /></a>
+<div align="center">
+
+[![gameplay](gameplay.gif?raw=true)](#)
+
+<a href="https://github.com/ZephyrVentum/FlappySpinner/raw/master/FlappySpinner.apk">
+<img src="download.png" alt="Download .apk file" width="250">
+</a>
+</div>
 
 ## Credits
 Great thanks to [this project](https://github.com/wmora/martianrun).<br>
-Music and sounds from open sources.<br>
-Graphis taken from mystick zip file. <br>
-Icons formatting for play market by [Elena Kiselova](http://designer.giver.guru/)<br>
+Music and sounds took from open sources.<br>
+Graphics took from mystic zip file. <br>
+Icons cropping for play market by [Elena Kiselova](http://lenadesigner.com)<br>
 Tester - [Alexey Koshmanov](https://vk.com/id7591994)
 
 ## License
